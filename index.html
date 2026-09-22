@@ -926,6 +926,24 @@
     var kpiInput = document.createElement('input'); kpiInput.type='text'; kpiInput.placeholder='예: 참여자 수 (선택)';
     var typeSelect = document.createElement('select');
     ITEM_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; typeSelect.appendChild(o); });
+    var typeTouched = false;
+    typeSelect.addEventListener('change', function(){ typeTouched = true; });
+    var TYPE_KEYWORDS = [
+      [/트레일러|영상|쇼츠|릴스|틱톡|더빙|자막|콘텐츠 제작|시네마틱/, '영상 제작'],
+      [/인플루언서|스트리머|KOL|크리에이터|공동방송|유튜버/i, '인플루언서'],
+      [/PR|보도|프레스|미디어|기사|엠바고|인터뷰/i, 'PR/미디어'],
+      [/행사|부스|쇼케이스 참가|지스타|gamescom|PAX|TwitchCon|컨퍼런스|팝업/i, '행사 참여'],
+      [/스토어|피처링|플랫폼|제휴/, '플랫폼'],
+      [/OOH|옥외|TV|CF|브랜드 광고|전광판/i, '브랜드 광고'],
+      [/퍼포먼스|UAC|리타겟팅|검색광고|디스플레이 광고|위시리스트 전환/, '퍼포먼스'],
+      [/CRM|커뮤니티|리텐션|UGC|리워드|총공|팬아트/i, 'CRM/커뮤니티']
+    ];
+    titleInput.addEventListener('input', function(){
+      if(typeTouched) return;
+      var title = titleInput.value;
+      var match = TYPE_KEYWORDS.find(function(pair){ return pair[0].test(title); });
+      if(match) typeSelect.value = match[1];
+    });
     var tierSelect = document.createElement('select');
     ['S','M','L','XL'].forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=TIER_LABEL[t]; tierSelect.appendChild(o); });
     tierSelect.value='M';
@@ -940,7 +958,7 @@
     formGrid.appendChild(field('설명', descInput));
     formGrid.appendChild(field('채널', chInput));
     formGrid.appendChild(field('목표 KPI', kpiInput));
-    formGrid.appendChild(field('유형', typeSelect));
+    formGrid.appendChild(field('유형(태그) — 항목명에서 자동 추천, 직접 변경 가능', typeSelect));
     formGrid.appendChild(field('예산 규모', tierSelect));
     formGrid.appendChild(field('비용 부담 주체', ownerSelect));
     formGrid.appendChild(field('최소 비용(만원)', minInput));
@@ -973,6 +991,7 @@
       titleInput.value=''; descInput.value=''; chInput.value=''; kpiInput.value='';
       typeSelect.value=ITEM_TYPES[0]; tierSelect.value='M'; ownerSelect.value='pub';
       minInput.value='500'; maxInput.value='1000'; leadInput.value='8';
+      typeTouched = false;
       PHASES.forEach(function(p){ phaseChecks[p.key].checked=false; });
       errorEl.hidden=true;
     }
