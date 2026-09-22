@@ -252,6 +252,8 @@
   .row-toggle{display:inline-flex; cursor:pointer;}
   .row-toggle input{width:17px; height:17px; cursor:pointer;}
   .cell-manage{white-space:nowrap;}
+  .col-select{display:inline-flex; align-items:center; gap:5px; cursor:pointer; text-transform:none; font-size:11px; letter-spacing:.02em;}
+  .col-select input{width:14px; height:14px; cursor:pointer;}
 
   /* ---- Add custom item ---- */
   .add-item-wrap{
@@ -361,10 +363,10 @@
         <th>규모</th>
         <th class="cell-cost">비용(만원)</th>
         <th>준비기간</th>
-        <th>상시운영</th>
-        <th>CBT1</th>
-        <th>CBT2</th>
-        <th>런칭</th>
+        <th><label class="col-select"><input type="checkbox" id="colcheck-always"> 상시운영</label></th>
+        <th><label class="col-select"><input type="checkbox" id="colcheck-cbt1"> CBT1</label></th>
+        <th><label class="col-select"><input type="checkbox" id="colcheck-cbt2"> CBT2</label></th>
+        <th><label class="col-select"><input type="checkbox" id="colcheck-launch"> 런칭</label></th>
         <th>관리</th>
       </tr>
     </thead>
@@ -826,6 +828,7 @@
       saveState(); updatePanelsAndSummaries();
       var row = td.closest('tr');
       if(row) row.classList.toggle('has-selection', PHASES.some(function(pp){ return state.selected.has(ck(it.id,pp.key)); }));
+      updateColumnCheckboxes();
     });
     td.appendChild(label);
     return td;
@@ -912,6 +915,7 @@
     return tr;
   }
 
+  var currentVisibleItems = [];
   function renderItemGrid(){
     var tbody = document.getElementById('itemGrid');
     tbody.innerHTML = '';
@@ -921,9 +925,37 @@
       if(filterState.type!=='all' && it.type!==filterState.type) return false;
       return true;
     });
+    currentVisibleItems = items;
     items.forEach(function(it){ tbody.appendChild(buildRow(it)); });
     var countEl = document.getElementById('itemCount');
     if(countEl) countEl.textContent = items.length+'개 항목 표시 중 (전체 '+allItems().length+'개)';
+    updateColumnCheckboxes();
+  }
+
+  function updateColumnCheckboxes(){
+    PHASES.forEach(function(p){
+      var cb = document.getElementById('colcheck-'+p.key);
+      if(!cb) return;
+      if(currentVisibleItems.length===0){ cb.checked=false; cb.indeterminate=false; cb.disabled=true; return; }
+      cb.disabled=false;
+      var checkedCount = currentVisibleItems.filter(function(it){ return state.selected.has(ck(it.id,p.key)); }).length;
+      cb.checked = checkedCount===currentVisibleItems.length;
+      cb.indeterminate = checkedCount>0 && checkedCount<currentVisibleItems.length;
+    });
+  }
+  function wireColumnCheckboxes(){
+    PHASES.forEach(function(p){
+      var cb = document.getElementById('colcheck-'+p.key);
+      if(!cb) return;
+      cb.addEventListener('change', function(){
+        var turnOn = cb.checked;
+        currentVisibleItems.forEach(function(it){
+          var key = ck(it.id, p.key);
+          if(turnOn) state.selected.add(key); else state.selected.delete(key);
+        });
+        saveState(); updateAll();
+      });
+    });
   }
 
   // ================= Add custom item =================
@@ -1255,6 +1287,7 @@
   PHASES.forEach(buildPhasePanel);
   buildFilterBar();
   buildAddItemForm();
+  wireColumnCheckboxes();
   document.getElementById('exportBtn').addEventListener('click', exportCSV);
 
   var hadSaved = loadState();
