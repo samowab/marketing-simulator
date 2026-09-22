@@ -276,27 +276,6 @@
   </div>
 </header>
 
-<section class="linkout-card">
-  <h2>연계 대시보드</h2>
-  <div class="linkout-grid">
-    <a class="linkout" href="https://claude.ai/artifact/7Kq7YBKJBq6oWQ6apVLFSd" target="_blank" rel="noopener noreferrer">
-      <span class="lo-eyebrow">인디게임 쇼케이스 일정</span>
-      <span class="lo-title">스팀 피쳐드 이벤트 캘린더 →</span>
-      <span class="lo-desc">Steam Next Fest·Future Games Show 등 22개 쇼케이스의 접수·행사 일정과 비용을 추적. "상시 운영"의 "Steam Next Fest 데모 참가" 항목과 연동.</span>
-    </a>
-    <a class="linkout" href="https://claude.ai/artifact/S9K4UhcqzVVhygPZSDCsAj" target="_blank" rel="noopener noreferrer">
-      <span class="lo-eyebrow">중국 시장 인플루언서</span>
-      <span class="lo-title">Bilibili KOL 트래커 →</span>
-      <span class="lo-desc">CN 아웃리치 대상 40인 · 합산 팔로워 약 2,300만명 · 전원 미접촉. "CBT2"의 "Bilibili KOL 아웃리치" 항목과 연동.</span>
-    </a>
-    <a class="linkout" href="https://samowab.github.io/kol-tracker/na-eu/" target="_blank" rel="noopener noreferrer">
-      <span class="lo-eyebrow">북미·유럽 시장 인플루언서</span>
-      <span class="lo-title">NA/EU KOL 트래커 →</span>
-      <span class="lo-desc">YouTube/Twitch 크리에이터 1,999명 · 이메일 확보 764명 · 전원 미접촉. "상시 운영"의 "NA/EU 인플루언서 아웃리치" 항목과 연동.</span>
-    </a>
-  </div>
-</section>
-
 <div class="overview" id="overview">
   <div class="overview-top">
     <h2>전체 캠페인 요약 (4구간 합계)</h2>
@@ -534,12 +513,6 @@
     var dt3=document.createElement('dt'); dt3.textContent='준비 기간'; var dd3=document.createElement('dd'); dd3.textContent='실행 '+it.lead+'주 전부터';
     meta.appendChild(dt1); meta.appendChild(dd1); meta.appendChild(dt2); meta.appendChild(dd2); meta.appendChild(dt3); meta.appendChild(dd3);
     card.appendChild(meta);
-
-    if(it.link){
-      var a = document.createElement('a'); a.className='db-link'; a.href=it.link.url; a.target='_blank'; a.rel='noopener noreferrer';
-      a.textContent = it.link.label+' →';
-      card.appendChild(a);
-    }
 
     if(it.ownDate){
       var evRow = document.createElement('div'); evRow.className='event-date-row';
@@ -898,7 +871,15 @@
     return s;
   }
 
-  function exportCSV(){
+  function downloadClassic(blob, filename){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  async function exportCSV(){
     var rows = [];
     rows.push(['구간','항목','부담 주체','유형','티어','최소비용(만원)','최대비용(만원)','채널','목표 KPI','준비 기간(주)','준비 시작일','실행일','적용 범위']);
     var grandMin=0, grandMax=0, rowCount=0;
@@ -923,13 +904,24 @@
     rows.push(['합계(퍼블리셔+공동 부담 기준)','','','','', grandMin, grandMax,'','','','','','']);
     var csv = rows.map(function(r){ return r.map(csvEscape).join(','); }).join('\r\n');
     var blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8;'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
     var today = new Date();
     var stamp = today.getFullYear()+('0'+(today.getMonth()+1)).slice(-2)+('0'+today.getDate()).slice(-2);
-    a.href = url; a.download = 'marketing-simulator-'+stamp+'.csv';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    var filename = 'marketing-simulator-'+stamp+'.csv';
+
+    var handled = false;
+    try{
+      if(window.claude && window.claude.use){
+        var downloads = await window.claude.use('downloads');
+        if(downloads){
+          await downloads.save({filename: filename, data: blob});
+          handled = true;
+        }
+      }
+    }catch(e){
+      if(e && e.code === 'declined'){ return; }
+      handled = false;
+    }
+    if(!handled){ downloadClassic(blob, filename); }
   }
 
   function updateAll(){
