@@ -382,7 +382,7 @@
     {id:'pr-launch-embargo',phases:['launch'],tier:'M',owner:'pub',type:'PR/미디어',min:1000,max:3000,pr:9,lead:9,title:'출시 PR 배포 및 리뷰 엠바고 관리',desc:'출시 보도자료 배포, 매체별 리뷰 엠바고 일정 관리.',ch:'PR/미디어',kpi:'보도 건수, 리뷰 평균 평점'},
     {id:'community-rally',phases:['cbt2','launch'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:2000,max:5000,pr:10,lead:8,title:'커뮤니티 총공 이벤트',desc:'인증샷·리뷰 작성 이벤트로 화제성을 확산.',ch:'커뮤니티',kpi:'이벤트 참여 게시물 수'},
     {id:'inf-stream-small',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'인플루언서',min:3000,max:6000,pr:11,lead:11,title:'소규모 스트리머 공동방송',desc:'중소 규모 스트리머 다수와 첫 플레이 공동방송 협업.',ch:'인플루언서',kpi:'최대 동시시청자 수, 유입 트래픽'},
-    {id:'video-showcase',phases:['cbt1','cbt2','launch'],tier:'M',owner:'co',type:'영상 제작',min:3000,max:7000,pr:12,lead:12,title:'게임플레이 쇼케이스 영상',desc:'신규 클래스·던전·핵심 시스템 활용 콘텐츠를 담은 8~12분 쇼케이스 영상 제작. 게임 빌드·에셋은 개발사, 제작비는 퍼블리셔.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
+    {id:'video-gameplay-trailer',phases:['cbt1','cbt2','launch'],tier:'M',owner:'co',type:'영상 제작',min:3000,max:7000,pr:12,lead:12,title:'게임플레이 트레일러 제작',desc:'실제 인게임 플레이 화면 기반의 게임플레이 트레일러 제작. 신규 클래스·던전·핵심 시스템 액션을 담아 실제 플레이 경험을 예고. 게임 빌드·에셋은 개발사, 제작비는 퍼블리셔.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
     {id:'crm-reward-large',phases:['cbt2','launch'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:3000,max:6000,pr:13,lead:10,title:'대규모 참여 리워드 이벤트',desc:'이전 라운드 대비 확대된 규모의 참여·피드백 리워드 이벤트.',ch:'CRM',kpi:'참여율, 재참여율(직전 라운드 대비)'},
     {id:'event-tga',phases:['cbt2','launch'],tier:'L',owner:'co',type:'행사 참여',min:5000,max:15000,pr:14,lead:12,ownDate:true,eventDate:'2026-12-10',eventNote:'The Game Awards는 매년 12월 둘째~셋째 주 목요일, LA 피콕 시어터에서 진행.',title:'The Game Awards 트레일러 공개',desc:'TGA 무대에서 트레일러 또는 신규 콘텐츠를 공개해 글로벌 동시 노출을 확보. 트레일러 소재는 개발사, 슬롯 확보·홍보비는 퍼블리셔.',ch:'브랜드 광고',kpi:'생방송 노출수, SNS 언급량 급증'},
     {id:'pr-showcase',phases:['cbt2','launch'],tier:'L',owner:'co',type:'PR/미디어',min:5000,max:15000,pr:15,lead:12,title:'프레스 쇼케이스·미디어데이',desc:'최신 빌드를 매체·크리에이터에 공개하는 쇼케이스 개최. 발표·시연은 개발사, 행사 운영비는 퍼블리셔.',ch:'PR/미디어',kpi:'참석 매체 수, 보도량'},
@@ -398,6 +398,7 @@
     {id:'brand-ooh',phases:['cbt2','launch'],tier:'XL',owner:'pub',type:'브랜드 광고',min:30000,max:70000,pr:25,lead:12,title:'옥외광고(OOH) 캠페인',desc:'지하철·버스·전광판 등 주요 거점 옥외광고 집행.',ch:'오프라인/BTL',kpi:'노출량(GRP), 브랜드 인지도 상승폭'},
     {id:'inf-live-showcase',phases:['launch'],tier:'XL',owner:'co',type:'인플루언서',min:30000,max:60000,pr:26,lead:10,title:'런칭 쇼케이스 생중계',desc:'출시 당일 대형 스트리머 다수가 참여하는 생중계 총공 이벤트. 개발사 대표 출연 조율 필요, 집행비는 퍼블리셔 부담.',ch:'인플루언서',kpi:'최대 동시 시청자 수, 실시간 유입량'},
     {id:'video-cinematic',phases:['cbt2','launch'],tier:'XL',owner:'co',type:'영상 제작',min:20000,max:50000,pr:27,lead:22,title:'시네마틱 트레일러 제작',desc:'풀 프로덕션 CG·인게임 합성 시네마틱 트레일러 제작. 게임 에셋·엔진 작업은 개발사, 외주 제작비는 퍼블리셔 부담이 일반적. 제작 특성상 최소 4개월 전 착수가 필요.',ch:'콘텐츠 제작',kpi:'조회수, 공유수, 트레일러 완주율'},
+    {id:'video-launch-trailer',phases:['launch'],tier:'L',owner:'co',type:'영상 제작',min:15000,max:35000,pr:26,lead:16,title:'런칭 트레일러 제작',desc:'게임플레이·시네마틱 소재를 종합 편집한 최종 런칭 트레일러 제작. 출시 발표와 동시에 공개되는 핵심 마케팅 자산. 편집·후반 작업비는 퍼블리셔, 원본 소재 협조는 개발사.',ch:'콘텐츠 제작',kpi:'조회수, 공유수, 트레일러 완주율'},
     {id:'perf-launch-mass',phases:['launch'],tier:'XL',owner:'pub',type:'퍼포먼스',min:50000,max:200000,pr:28,lead:8,title:'대규모 퍼포먼스 마케팅 집행',desc:'UAC·검색광고·디스플레이 광고를 출시 2주간 집중 집행.',ch:'퍼포먼스 광고',kpi:'설치·구매 전환수, ROAS'},
     {id:'brand-tv-cf',phases:['cbt2','launch'],tier:'XL',owner:'pub',type:'브랜드 광고',min:50000,max:150000,pr:29,lead:16,title:'TV·디지털 통합 CF',desc:'TV CF 및 디지털 동영상 광고를 통합 제작·집행.',ch:'브랜드 광고',kpi:'도달률, 영상 완료율'}
   ];
@@ -697,7 +698,7 @@
   }
 
   // ================= Filter bar =================
-  var filterState = { phase:'all', owner:'all' };
+  var filterState = { phase:'all', owner:'all', type:'all' };
   function buildFilterBar(){
     var bar = document.getElementById('filterBar');
     bar.innerHTML = '';
@@ -739,6 +740,25 @@
       ownerBtns[pair[0]]=b; ownerGroup.appendChild(b);
     });
     bar.appendChild(ownerGroup);
+
+    var typeGroup = document.createElement('div'); typeGroup.className='filter-group';
+    var tLabel = document.createElement('span'); tLabel.className='flabel'; tLabel.textContent='태그';
+    typeGroup.appendChild(tLabel);
+    var typeBtns = {};
+    function makeTypeChip(key, label){
+      var b = document.createElement('button'); b.type='button'; b.className='filter-chip';
+      b.setAttribute('aria-pressed', key==='all'?'true':'false');
+      b.textContent = label;
+      b.addEventListener('click', function(){
+        filterState.type = key;
+        Object.keys(typeBtns).forEach(function(k){ typeBtns[k].setAttribute('aria-pressed', k===key?'true':'false'); });
+        renderItemGrid();
+      });
+      typeBtns[key]=b; typeGroup.appendChild(b);
+    }
+    makeTypeChip('all','전체');
+    ITEM_TYPES.forEach(function(t){ makeTypeChip(t, t); });
+    bar.appendChild(typeGroup);
 
     var count = document.createElement('span'); count.className='item-count'; count.id='itemCount';
     bar.appendChild(count);
@@ -880,6 +900,7 @@
     var items = allItems().filter(function(it){
       if(filterState.phase!=='all' && it.phases.indexOf(filterState.phase)===-1) return false;
       if(filterState.owner!=='all' && it.owner!==filterState.owner) return false;
+      if(filterState.type!=='all' && it.type!==filterState.type) return false;
       return true;
     });
     items.forEach(function(it){ grid.appendChild(buildCard(it)); });
