@@ -306,6 +306,7 @@
     <div class="stat"><span class="k">잔여 예산</span><span class="v tabular" id="ovRemain">0원</span></div>
     <span class="health-chip" id="ovHealth">여유</span>
     <div class="stat"><span class="k">개발사 부담 (참고, 예산 미반영)</span><span class="v tabular" id="ovDev">0원</span></div>
+    <button class="btn btn-primary" id="exportBtn" type="button" style="margin-left:auto;">엑셀로 내보내기 (CSV)</button>
   </div>
   <div class="stackbar" id="ovStackbar"></div>
   <div class="legend" id="ovLegend"></div>
@@ -329,10 +330,10 @@
   "use strict";
 
   var PHASES = [
-    {key:'always', label:'상시 운영', sub:'마일스톤과 무관하게 캠페인 기간 내내 지속되는 기반 활동입니다.', color:'var(--phase-always)', bMin:0.1, bMax:5, bStep:0.1, bDefault:0.5},
-    {key:'cbt1',   label:'CBT1', sub:'1차 비공개 테스트. 소규모 인원 대상으로 핵심 피드백 수집과 초기 화제성 확보가 목표입니다.', color:'var(--phase-cbt1)', bMin:0.1, bMax:5, bStep:0.1, bDefault:1.5},
-    {key:'cbt2',   label:'CBT2', sub:'오픈베타에 가까운 2차 테스트. 대중 인지도 확산과 위시리스트 전환이 목표입니다.', color:'var(--phase-cbt2)', bMin:0.5, bMax:30, bStep:0.5, bDefault:4},
-    {key:'launch', label:'런칭', sub:'출시 임박 ~ 출시 직후 2주. 최대 화제성과 초기 매출 임팩트에 집중합니다.', color:'var(--phase-launch)', bMin:1, bMax:80, bStep:1, bDefault:18}
+    {key:'always', label:'상시 운영', sub:'마일스톤과 무관하게 캠페인 기간 내내 지속되는 기반 활동입니다.', color:'var(--phase-always)', bMin:0, bMax:30, bStep:0.1, bDefault:0.5},
+    {key:'cbt1',   label:'CBT1', sub:'1차 비공개 테스트. 소규모 인원 대상으로 핵심 피드백 수집과 초기 화제성 확보가 목표입니다.', color:'var(--phase-cbt1)', bMin:0, bMax:50, bStep:0.5, bDefault:1.5},
+    {key:'cbt2',   label:'CBT2', sub:'오픈베타에 가까운 2차 테스트. 대중 인지도 확산과 위시리스트 전환이 목표입니다.', color:'var(--phase-cbt2)', bMin:0, bMax:150, bStep:0.5, bDefault:4},
+    {key:'launch', label:'런칭', sub:'출시 임박 ~ 출시 직후 2주. 최대 화제성과 초기 매출 임팩트에 집중합니다.', color:'var(--phase-launch)', bMin:0, bMax:500, bStep:1, bDefault:18}
   ];
 
   var TIER_COLOR = {S:'var(--tier-s)', M:'var(--tier-m)', L:'var(--tier-l)', XL:'var(--tier-xl)'};
@@ -624,7 +625,7 @@
 
     var controls = document.createElement('div'); controls.className='phase-controls';
     var numWrap = document.createElement('div'); numWrap.className='num-wrap';
-    var numInput = document.createElement('input'); numInput.type='number'; numInput.min=p.bMin; numInput.max=p.bMax; numInput.step=p.bStep; numInput.value=state.budgets[p.key];
+    var numInput = document.createElement('input'); numInput.type='number'; numInput.min=p.bMin; numInput.step=p.bStep; numInput.value=state.budgets[p.key];
     var numUnit = document.createElement('span'); numUnit.textContent='억원';
     numWrap.appendChild(numInput); numWrap.appendChild(numUnit);
     var budgetInputs = document.createElement('div'); budgetInputs.className='budget-inputs';
@@ -709,10 +710,11 @@
 
   function setBudget(phaseKey, v){
     var p = PHASE_MAP[phaseKey];
-    v = Math.max(p.bMin, Math.min(p.bMax, v));
+    v = Math.max(p.bMin, v);
     state.budgets[phaseKey] = v;
     phaseRefs[phaseKey].numInput.value = v;
-    phaseRefs[phaseKey].rangeInput.value = v;
+    if(v <= p.bMax){ phaseRefs[phaseKey].rangeInput.value = v; }
+    else{ phaseRefs[phaseKey].rangeInput.value = p.bMax; }
     saveState(); updateAll();
   }
 
@@ -889,6 +891,47 @@
     body.appendChild(scroll);
   }
 
+  // ---------- Export ----------
+  function csvEscape(v){
+    var s = (v===null||v===undefined) ? '' : String(v);
+    if(/[",\n]/.test(s)){ s = '"'+s.replace(/"/g,'""')+'"'; }
+    return s;
+  }
+
+  function exportCSV(){
+    var rows = [];
+    rows.push(['구간','항목','부담 주체','유형','티어','최소비용(만원)','최대비용(만원)','채널','목표 KPI','준비 기간(주)','준비 시작일','실행일','적용 범위']);
+    var grandMin=0, grandMax=0, rowCount=0;
+    PHASES.forEach(function(p){
+      ITEMS_BY_PHASE[p.key].forEach(function(it){
+        if(!state.selected.has(it.id)) return;
+        var c = getCost(it);
+        var eff = effectiveDate(it);
+        var prep = prepStartDate(it);
+        rows.push([
+          p.label, it.title, OWNER_LABEL[it.owner], it.type, it.tier,
+          c.min, c.max, it.ch, it.kpi, it.lead,
+          prep?fmtDate(prep):'', eff?fmtDate(eff):'',
+          it.scope||''
+        ]);
+        rowCount++;
+        if(it.owner!=='dev'){ grandMin+=c.min; grandMax+=c.max; }
+      });
+    });
+    if(rowCount===0){ alert('선택된 항목이 없습니다. 먼저 항목을 선택하거나 각 구간에서 "자동 추천"을 실행하세요.'); return; }
+    rows.push([]);
+    rows.push(['합계(퍼블리셔+공동 부담 기준)','','','','', grandMin, grandMax,'','','','','','']);
+    var csv = rows.map(function(r){ return r.map(csvEscape).join(','); }).join('\r\n');
+    var blob = new Blob(['﻿'+csv], {type:'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var today = new Date();
+    var stamp = today.getFullYear()+('0'+(today.getMonth()+1)).slice(-2)+('0'+today.getDate()).slice(-2);
+    a.href = url; a.download = 'marketing-simulator-'+stamp+'.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
   function updateAll(){
     var perPhaseTotals = {};
     PHASES.forEach(function(p){
@@ -900,6 +943,7 @@
   }
 
   PHASES.forEach(buildPhaseSection);
+  document.getElementById('exportBtn').addEventListener('click', exportCSV);
 
   var hadSaved = loadState();
   if(!hadSaved){ PHASES.forEach(function(p){ autoRecommendPhase(p.key); }); }
