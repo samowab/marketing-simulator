@@ -49,36 +49,34 @@
   body{
     background:var(--bg); color:var(--text);
     font-family:'Noto Sans KR', system-ui, -apple-system, sans-serif;
-    padding-inline:16px; padding-block:0 32px; max-width:1220px; margin:0 auto;
+    padding-inline:16px; padding-block:0 32px; max-width:1280px; margin:0 auto;
   }
-  h1,h2,h3,.brand{font-family:'Orbit','Noto Sans KR',system-ui,sans-serif;}
+  h1,h2,h3{font-family:'Noto Sans KR',system-ui,-apple-system,sans-serif; font-weight:800;}
+  .brand{font-family:'Orbit','Noto Sans KR',system-ui,sans-serif;}
   .tabular{font-variant-numeric:tabular-nums;}
   a{color:var(--accent);}
 
   header.hero{padding-block:28px 16px;}
   .eyebrow{font-size:12px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin:0 0 8px;}
   header.hero h1{font-size:clamp(22px,4vw,32px); margin:0 0 10px; letter-spacing:.01em; text-wrap:balance;}
-  header.hero p{color:var(--text-2); font-size:14px; line-height:1.7; max-width:78ch; margin:0 0 6px;}
+  header.hero p{color:var(--text-2); font-size:14px; line-height:1.7; max-width:80ch; margin:0 0 6px;}
   .disclaimer{
     font-size:12.5px; color:var(--text-2); background:var(--surface-2); border:1px solid var(--border);
     border-radius:10px; padding:10px 14px; margin-top:14px; line-height:1.6;
   }
 
-  /* ---- Linked dashboards ---- */
-  .linkout-card{
+  /* ---- Presets ---- */
+  .preset-card{
     background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px;
     margin-bottom:18px; box-shadow:var(--shadow);
   }
-  .linkout-card h2{font-size:14px; margin:0 0 12px; letter-spacing:.02em;}
-  .linkout-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px;}
-  .linkout{
-    display:flex; flex-direction:column; gap:4px; text-decoration:none; color:inherit;
-    background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px;
+  .preset-card h2{font-size:14px; margin:0 0 4px; letter-spacing:.02em;}
+  .preset-sub{font-size:12px; color:var(--text-2); margin:0 0 12px; line-height:1.6;}
+  .preset-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .preset-row select{
+    border:1px solid var(--border); background:var(--surface-2); color:var(--text); border-radius:8px;
+    padding:8px 10px; font-size:13px; font-family:inherit; min-width:220px; max-width:100%;
   }
-  .linkout:hover{border-color:var(--accent);}
-  .lo-eyebrow{font-size:11px; color:var(--muted); font-weight:700; letter-spacing:.03em;}
-  .lo-title{font-size:14px; font-weight:700; color:var(--accent);}
-  .lo-desc{font-size:12px; color:var(--text-2); line-height:1.5;}
 
   /* ---- Overview bar ---- */
   .overview{
@@ -109,141 +107,155 @@
   .legend-item .dot{width:9px; height:9px; border-radius:3px; flex:none;}
   .legend-item b{color:var(--text); font-variant-numeric:tabular-nums; font-weight:700;}
 
-  /* ---- Phase sections ---- */
-  .phase-block{
-    background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px;
-    margin-bottom:22px; box-shadow:var(--shadow); border-top:4px solid var(--phase-color, var(--accent));
+  /* ---- Phase control panels ---- */
+  .phase-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:14px; margin-bottom:22px;}
+  .phase-panel{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:14px;
+    box-shadow:var(--shadow); border-top:4px solid var(--phase-color, var(--accent));
+    display:flex; flex-direction:column; gap:10px;
   }
-  .phase-head{display:flex; align-items:flex-start; gap:10px; margin-bottom:14px;}
-  .phase-dot{width:12px; height:12px; border-radius:50%; margin-top:6px; flex:none;}
-  .phase-head h2{font-size:18px; margin:0 0 4px; display:inline-flex; align-items:center; gap:9px;}
-  .phase-sub{font-size:12.5px; color:var(--text-2); line-height:1.6; margin:0; max-width:66ch;}
+  .phase-panel-head{display:flex; align-items:center; gap:8px;}
+  .phase-dot{width:11px; height:11px; border-radius:50%; flex:none;}
+  .phase-panel-head h3{font-size:15px; margin:0; flex:1;}
   .dday-badge{
-    font-family:'Noto Sans KR',sans-serif; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px;
-    background:var(--phase-color, var(--accent)); color:#fff; vertical-align:middle; font-variant-numeric:tabular-nums;
+    font-family:'Noto Sans KR',sans-serif; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px;
+    background:var(--phase-color, var(--accent)); color:#fff; font-variant-numeric:tabular-nums;
   }
-  .date-wrap{display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:4px 10px;}
-  .date-wrap label{font-size:11.5px; color:var(--text-2); font-weight:600; white-space:nowrap;}
-  .date-wrap input[type=date]{
-    border:none; background:transparent; color:var(--text); font-size:13px; font-family:inherit;
-    font-variant-numeric:tabular-nums;
-  }
-  .date-wrap input[type=date]:focus{outline:none;}
-
-  .phase-controls{
-    background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:12px 14px;
-    display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-bottom:12px;
-  }
+  .phase-sub{font-size:11.5px; color:var(--text-2); line-height:1.5; margin:0;}
   .budget-inputs{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
-  .num-wrap{display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:4px 8px;}
+  .num-wrap{display:flex; align-items:center; gap:6px; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:4px 8px;}
   .num-wrap input[type=number]{
-    width:64px; border:none; background:transparent; color:var(--text); font-size:15px; font-weight:700;
-    text-align:right; font-variant-numeric:tabular-nums;
+    width:60px; border:none; background:transparent; color:var(--text); font-size:14px; font-weight:700;
+    text-align:right; font-variant-numeric:tabular-nums; font-family:inherit;
   }
   .num-wrap input[type=number]:focus{outline:none;}
-  .num-wrap span{font-size:13px; color:var(--text-2);}
-  input[type=range]{flex:1 1 140px; min-width:110px; accent-color:var(--accent);}
+  .num-wrap span{font-size:12.5px; color:var(--text-2);}
+  input[type=range]{flex:1 1 90px; min-width:70px; accent-color:var(--accent);}
+  .date-wrap{display:flex; align-items:center; gap:6px; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:4px 10px;}
+  .date-wrap label{font-size:11px; color:var(--text-2); font-weight:600; white-space:nowrap;}
+  .date-wrap input[type=date]{border:none; background:transparent; color:var(--text); font-size:12.5px; font-family:inherit;}
+  .date-wrap input[type=date]:focus{outline:none;}
   .chips{display:flex; gap:6px; flex-wrap:wrap;}
   .chip-btn{
-    border:1px solid var(--border); background:var(--surface); color:var(--text-2); font-size:11.5px;
+    border:1px solid var(--border); background:var(--surface-2); color:var(--text-2); font-size:11px;
     padding:4px 9px; border-radius:999px; cursor:pointer; font-weight:600;
   }
   .chip-btn:hover{border-color:var(--accent); color:var(--accent);}
-  .actions{display:flex; gap:8px; margin-left:auto; flex-wrap:wrap;}
+  .panel-actions{display:flex; gap:8px; flex-wrap:wrap;}
   .btn{border:none; border-radius:8px; padding:8px 13px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit;}
   .btn-primary{background:var(--accent); color:var(--accent-ink);}
   .btn-ghost{background:transparent; color:var(--text-2); border:1px solid var(--border);}
   .btn-ghost:hover{border-color:var(--text-2); color:var(--text);}
+  .panel-status{display:flex; flex-direction:column; gap:6px; font-size:12px; border-top:1px dashed var(--border); padding-top:10px;}
+  .panel-status .row{display:flex; justify-content:space-between; gap:8px; color:var(--text-2);}
+  .panel-status .row b{color:var(--text); font-variant-numeric:tabular-nums; font-weight:700;}
+  .panel-progress{height:7px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); overflow:hidden;}
+  .panel-progress-fill{height:100%; border-radius:999px; transition:width .25s ease;}
 
-  .phase-status{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-bottom:14px;}
+  /* ---- Filter bar ---- */
+  .filter-bar{
+    display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; margin-bottom:14px;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:10px 14px; box-shadow:var(--shadow);
+  }
+  .filter-group{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .filter-group .flabel{font-size:11px; color:var(--muted); font-weight:700; margin-right:2px;}
+  .filter-chip{
+    border:1px solid var(--border); background:var(--surface-2); color:var(--text-2); font-size:12px; font-weight:700;
+    padding:5px 11px; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .filter-chip .dot{width:8px; height:8px; border-radius:50%;}
+  .filter-chip[aria-pressed="true"]{background:var(--text); color:var(--bg); border-color:var(--text);}
+  .filter-chip[aria-pressed="true"] .dot{outline:2px solid var(--bg);}
+  .item-count{font-size:12px; color:var(--muted); margin-left:auto;}
 
-  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:14px;}
+  /* ---- Item grid / cards ---- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:14px; margin-bottom:14px;}
   .card{
     background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px;
     display:flex; flex-direction:column; gap:9px; box-shadow:var(--shadow);
   }
-  .card.checked{border-color:var(--accent);}
+  .card.has-selection{border-color:var(--accent);}
   .card-top{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
   .tier-chip{
     display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:var(--text-2);
     border:1px solid var(--border); border-radius:999px; padding:3px 8px;
   }
   .tier-chip .dot{width:8px; height:8px; border-radius:50%;}
-  .type-chip{
-    font-size:10.5px; font-weight:700; color:var(--text-2); background:var(--surface-2); border:1px solid var(--border);
-    border-radius:999px; padding:3px 8px;
-  }
-  .scope-chip{
-    font-size:10.5px; font-weight:700; color:var(--accent); background:var(--surface-2); border:1px solid var(--border);
-    border-radius:999px; padding:3px 8px; margin-left:auto;
-  }
+  .type-chip{font-size:10.5px; font-weight:700; color:var(--text-2); background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:3px 8px;}
   .owner-chip{font-size:10.5px; font-weight:700; border-radius:999px; padding:3px 8px; border:1px solid transparent;}
   .owner-pub{background:var(--owner-pub-bg); color:var(--owner-pub-fg);}
   .owner-dev{background:var(--owner-dev-bg); color:var(--owner-dev-fg);}
   .owner-co{background:var(--owner-co-bg); color:var(--owner-co-fg);}
-  .owner-filter{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
-  .owner-filter button{
-    border:1px solid var(--border); background:var(--surface); color:var(--text-2); font-size:11.5px; font-weight:700;
-    padding:5px 11px; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;
-  }
-  .owner-filter button[aria-pressed="true"]{background:var(--text); color:var(--bg); border-color:var(--text);}
-  .owner-filter button .dot{width:7px; height:7px; border-radius:50%;}
+  .scope-chip{font-size:10.5px; font-weight:700; color:var(--accent); background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:3px 8px;}
+  .custom-badge{font-size:10px; font-weight:700; color:var(--accent); background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:2px 7px; margin-left:auto;}
   .card h3{font-size:15px; margin:0; line-height:1.4;}
   .card .desc{font-size:12.5px; color:var(--text-2); line-height:1.6; margin:0;}
   .meta{display:grid; grid-template-columns:auto 1fr; gap:3px 8px; font-size:11.5px; margin:0;}
   .meta dt{color:var(--muted); font-weight:600;}
   .meta dd{margin:0; color:var(--text-2);}
-  .db-link{font-size:11.5px; font-weight:700; color:var(--accent); text-decoration:none;}
-  .db-link:hover{text-decoration:underline;}
 
   .event-date-row{display:flex; align-items:center; gap:6px; flex-wrap:wrap; background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:6px 10px;}
   .event-date-row label{font-size:11px; color:var(--text-2); font-weight:600;}
   .event-date-row input[type=date]{border:none; background:transparent; color:var(--text); font-size:12.5px; font-family:inherit;}
-  .event-note{font-size:11px; color:var(--muted); line-height:1.5; font-style:italic;}
+  .event-note{font-size:11px; color:var(--muted); line-height:1.5; font-style:italic; margin:0;}
 
-  .sched-row{display:flex; flex-wrap:wrap; gap:6px 10px; font-size:11px;}
-  .sched-chip{display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; font-weight:600; font-variant-numeric:tabular-nums;}
-  .sched-chip.prep{background:var(--surface-2); color:var(--text-2); border:1px solid var(--border);}
-  .sched-chip.exec{background:var(--surface-2); color:var(--text); border:1px solid var(--border);}
-  .sched-chip.late{background:var(--crit-bg); color:var(--crit); border-color:transparent;}
-  .sched-empty{font-size:11px; color:var(--muted);}
-
-  .card-foot{
-    display:flex; align-items:center; justify-content:space-between; gap:10px 12px; margin-top:auto;
-    padding-top:10px; border-top:1px dashed var(--border); flex-wrap:wrap;
-  }
-  .cost{font-size:13px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .phase-toggles{display:flex; flex-direction:column; gap:6px; border-top:1px dashed var(--border); padding-top:10px;}
+  .phase-toggle-block{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:8px 10px;}
+  .phase-toggle-btn{display:flex; align-items:center; gap:7px; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--text-2); user-select:none;}
+  .phase-toggle-btn input{width:15px; height:15px; cursor:pointer; flex:none;}
+  .phase-toggle-btn .dot{width:8px; height:8px; border-radius:50%; flex:none;}
+  .phase-instance-detail{margin-top:8px; display:flex; flex-direction:column; gap:8px;}
   .cost-edit{display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
   .cost-input{
-    width:64px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); border-radius:6px;
+    width:62px; border:1px solid var(--border); background:var(--surface); color:var(--text); border-radius:6px;
     padding:3px 5px; font-size:12px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; font-family:inherit;
   }
   .cost-input:focus{outline:2px solid var(--accent); outline-offset:1px;}
   .cost-unit{font-size:11px; color:var(--muted);}
   .cost-sep{font-size:11px; color:var(--muted);}
-  .reset-cost{
-    border:1px solid var(--border); background:var(--surface-2); color:var(--text-2); border-radius:6px;
-    width:22px; height:22px; line-height:1; cursor:pointer; font-size:12px; padding:0;
-  }
+  .reset-cost{border:1px solid var(--border); background:var(--surface); color:var(--text-2); border-radius:6px; width:22px; height:22px; line-height:1; cursor:pointer; font-size:12px; padding:0;}
   .reset-cost:hover{border-color:var(--accent); color:var(--accent);}
-  .custom-badge{font-size:10px; font-weight:700; color:var(--accent); background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:2px 7px;}
-  .toggle{display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--text-2); cursor:pointer; user-select:none;}
-  .toggle input{width:16px; height:16px; accent-color:var(--accent); cursor:pointer;}
+  .sched-row{display:flex; flex-wrap:wrap; gap:6px 10px; font-size:11px;}
+  .sched-chip{display:inline-flex; align-items:center; gap:5px; padding:3px 8px; border-radius:6px; font-weight:600; font-variant-numeric:tabular-nums;}
+  .sched-chip.prep{background:var(--surface); color:var(--text-2); border:1px solid var(--border);}
+  .sched-chip.exec{background:var(--surface); color:var(--text); border:1px solid var(--border);}
+  .sched-chip.late{background:var(--crit-bg); color:var(--crit); border-color:transparent;}
+  .sched-empty{font-size:11px; color:var(--muted);}
 
-  /* ---- Calendar ---- */
-  .cal-card{
-    background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px;
+  .card-foot{display:flex; align-items:center; justify-content:flex-end; gap:8px; margin-top:auto; padding-top:8px;}
+  .custom-delete{color:var(--crit); border-color:var(--border);}
+  .custom-delete:hover{border-color:var(--crit);}
+
+  /* ---- Add custom item ---- */
+  .add-item-wrap{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px;
     margin-bottom:22px; box-shadow:var(--shadow);
   }
+  .add-item-form{margin-top:12px; display:flex; flex-direction:column; gap:10px;}
+  .form-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px;}
+  .form-row{display:flex; flex-direction:column; gap:4px;}
+  .form-row label{font-size:11.5px; font-weight:700; color:var(--text-2);}
+  .form-row input[type=text], .form-row input[type=number], .form-row select{
+    border:1px solid var(--border); background:var(--surface-2); color:var(--text); border-radius:8px;
+    padding:8px 10px; font-size:13px; font-family:inherit; width:100%;
+  }
+  .phase-check-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .phase-check-row label{display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-2); cursor:pointer;}
+  .phase-check-row input{width:15px; height:15px; cursor:pointer;}
+  .ai-error{font-size:12px; color:var(--crit); margin:0;}
+  .form-actions{display:flex; gap:8px; justify-content:flex-end;}
+
+  /* ---- Calendar ---- */
+  .cal-card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:18px; margin-bottom:22px; box-shadow:var(--shadow);}
   .cal-card h2{font-size:18px; margin:0 0 4px;}
   .cal-sub{font-size:12.5px; color:var(--text-2); line-height:1.6; margin:0 0 14px; max-width:70ch;}
   .cal-scroll{overflow-x:auto;}
-  .cal-inner{min-width:820px;}
-  .cal-months{display:grid; grid-template-columns:220px 1fr; column-gap:12px; padding-bottom:6px; border-bottom:1px solid var(--border);}
+  .cal-inner{min-width:860px;}
+  .cal-months{display:grid; grid-template-columns:260px 1fr; column-gap:12px; padding-bottom:6px; border-bottom:1px solid var(--border);}
   .cal-corner{font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); align-self:end; padding-bottom:6px;}
   .cal-monthtrack{position:relative; height:20px;}
   .cal-monthtrack span{position:absolute; top:0; font-size:11px; color:var(--muted); transform:translateX(2px); font-variant-numeric:tabular-nums;}
-  .cal-body{display:grid; grid-template-columns:220px 1fr; column-gap:12px; padding-top:8px;}
+  .cal-body{display:grid; grid-template-columns:260px 1fr; column-gap:12px; padding-top:8px;}
   .cal-names{display:grid; row-gap:8px;}
   .cal-name{display:flex; align-items:center; gap:7px; height:26px; font-size:12px; overflow:hidden;}
   .cal-name .dot{width:8px; height:8px; border-radius:50%; flex:none;}
@@ -262,25 +274,36 @@
   footer.foot{margin-top:26px; padding-top:16px; border-top:1px solid var(--border); font-size:11.5px; color:var(--muted); line-height:1.8;}
 
   @media (max-width:640px){
-    .actions{margin-left:0; width:100%;}
+    .item-count{margin-left:0; width:100%;}
   }
 </style>
 
 <header class="hero">
   <p class="eyebrow">Marketing Budget Simulator</p>
   <h1>마케팅 시뮬레이터</h1>
-  <p><b>상시 운영 / CBT1 / CBT2 / 런칭</b> 4개 구간으로 나눠 SNS·CRM부터 영상 제작, 오프라인 행사 참여까지 마케팅 액션 아이템을 정리했습니다. 구간별 예산과 예정일을 입력하면 우선순위 기반 자동 추천이 항목을 구성하고, 각 항목의 준비 소요기간(리드타임)을 반영해 "언제부터 준비를 시작해야 하는지"까지 계산합니다. gamescom·지스타·The Game Awards처럼 고정 일정이 있는 행사는 항목 카드에서 실제 행사일을 직접 입력/조정할 수 있습니다. 각 항목은 비용 부담 주체(<b>퍼블리셔 / 개발사 / 공동 부담</b>)로 구분되어 있고 — 구간 예산과 진행률은 퍼블리셔·공동 부담 항목만 반영하며 개발사 부담분은 참고용으로 별도 집계됩니다 — 금액도 항목별로 직접 수정할 수 있습니다. 맨 아래 캘린더에서 전체 캠페인 일정을 한눈에 확인하세요.</p>
+  <p>전체 마케팅 액션 아이템을 한 리스트에 모아뒀습니다. 각 항목은 어느 구간(<b>상시 운영 / CBT1 / CBT2 / 런칭</b>)에 등장할 수 있는지 미리 정의되어 있고 — 예: 트레일러 영상 제작은 CBT1·CBT2·런칭 모두에 걸쳐 있을 수 있습니다 — 카드에서 원하는 구간 토글을 켜면 그 항목이 해당 구간의 예산·일정에 포함됩니다. 각 구간 패널에서 "자동 추천"을 누르면 예산에 맞게 해당 구간에 적합한 항목들이 자동으로 켜지고, 직접 원하는 구간만 골라 켤 수도 있습니다. 항목별 준비 소요기간(리드타임)을 반영해 구간별로 "언제부터 준비를 시작해야 하는지"를 계산하고, 비용 부담 주체(퍼블리셔/개발사/공동)와 금액도 구간마다 따로 조정할 수 있습니다.</p>
   <div class="disclaimer">
     ⚠️ 항목·금액·준비기간은 일반적인 콘솔·PC MMORPG 마케팅 관행을 기준으로 한 <b>예시 추정치</b>이며 특정 프로젝트의 공식 확정 예산이 아닙니다. 실제 집행 전 사내 예산 프로세스와 실제 견적으로 반드시 재검증하세요.
     구간명(상시 운영/CBT1/CBT2/런칭)은 실제 날짜 대신 마일스톤 기준으로 표기했으니, 담당 중인 프로젝트의 실제 일정에 맞게 각 구간의 예정일을 입력해 사용하세요.
   </div>
 </header>
 
+<section class="preset-card">
+  <h2>프리셋</h2>
+  <p class="preset-sub">지금 설정(구간별 예산·예정일·항목별 구간 배정·금액 수정분·커스텀 항목)을 이름 붙여 저장해두고 언제든 다시 불러올 수 있습니다.</p>
+  <div class="preset-row">
+    <select id="presetSelect" aria-label="저장된 프리셋"></select>
+    <button class="btn btn-ghost" id="presetLoadBtn" type="button">불러오기</button>
+    <button class="btn btn-ghost" id="presetDeleteBtn" type="button">삭제</button>
+    <button class="btn btn-primary" id="presetSaveBtn" type="button" style="margin-left:auto;">현재 설정을 새 프리셋으로 저장</button>
+  </div>
+</section>
+
 <div class="overview" id="overview">
   <div class="overview-top">
     <h2>전체 캠페인 요약 (4구간 합계)</h2>
     <div class="stat"><span class="k">총 예산</span><span class="v tabular" id="ovBudget">0원</span></div>
-    <div class="stat"><span class="k">선택된 항목 비용 (최소~최대)</span><span class="v tabular" id="ovCost">0원</span></div>
+    <div class="stat"><span class="k">선택된 비용 (최소~최대)</span><span class="v tabular" id="ovCost">0원</span></div>
     <div class="progress-track"><div class="progress-fill" id="ovProgressFill"></div></div>
     <div class="stat"><span class="k">잔여 예산</span><span class="v tabular" id="ovRemain">0원</span></div>
     <span class="health-chip" id="ovHealth">여유</span>
@@ -291,17 +314,26 @@
   <div class="legend" id="ovLegend"></div>
 </div>
 
-<div id="phaseSections"></div>
+<div class="phase-grid" id="phaseGrid"></div>
+
+<div class="add-item-wrap">
+  <button class="btn btn-ghost add-item-toggle" id="addItemToggle" type="button">+ 새 항목 추가</button>
+  <div class="add-item-form" id="addItemForm" hidden></div>
+</div>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<div class="grid" id="itemGrid"></div>
 
 <section class="cal-card">
   <h2>전체 캠페인 캘린더</h2>
-  <p class="cal-sub">선택된 항목을 "준비 시작일 → 실행일" 막대로 표시합니다. 옅은 막대는 준비 기간, 끝의 굵은 선은 실행일(행사일/마일스톤일)입니다. 예정일이 입력되지 않은 항목은 표시되지 않으니, 위 구간별 예정일 또는 행사 카드의 행사일을 먼저 입력하세요.</p>
+  <p class="cal-sub">선택된 (항목 × 구간) 조합을 "준비 시작일 → 실행일" 막대로 표시합니다. 같은 항목이 여러 구간에 걸쳐 있으면 구간별로 각각 한 줄씩 나타납니다. 예정일이 입력되지 않은 조합은 표시되지 않습니다.</p>
   <div id="calendarBody"></div>
 </section>
 
 <footer class="foot">
   <p>참고 자료: G-STAR 2026 공식 일정(2026-11-19~22, 부산 벡스코) · The Game Awards 공식 발표(2026-12-10) (2026년 9월 조사 기준, 일정은 추후 변동 가능). 행사 일정이 없는 항목은 담당 프로젝트의 실제 일정으로 직접 입력해 사용하세요.</p>
-  <p>이 페이지의 선택 상태·구간별 예산·모든 날짜 값은 이 브라우저에만 로컬로 저장되며 다른 기기나 사용자와 공유되지 않습니다.</p>
+  <p>이 페이지의 모든 설정(예산·날짜·선택·프리셋 포함)은 이 브라우저에만 로컬로 저장되며 다른 기기나 사용자와 공유되지 않습니다.</p>
 </footer>
 
 <script>
@@ -309,108 +341,151 @@
   "use strict";
 
   var PHASES = [
-    {key:'always', label:'상시 운영', sub:'마일스톤과 무관하게 캠페인 기간 내내 지속되는 기반 활동입니다.', color:'var(--phase-always)', bMin:0, bMax:30, bStep:0.1, bDefault:0.5},
-    {key:'cbt1',   label:'CBT1', sub:'1차 비공개 테스트. 소규모 인원 대상으로 핵심 피드백 수집과 초기 화제성 확보가 목표입니다.', color:'var(--phase-cbt1)', bMin:0, bMax:50, bStep:0.5, bDefault:1.5},
-    {key:'cbt2',   label:'CBT2', sub:'오픈베타에 가까운 2차 테스트. 대중 인지도 확산과 위시리스트 전환이 목표입니다.', color:'var(--phase-cbt2)', bMin:0, bMax:150, bStep:0.5, bDefault:4},
-    {key:'launch', label:'런칭', sub:'출시 임박 ~ 출시 직후 2주. 최대 화제성과 초기 매출 임팩트에 집중합니다.', color:'var(--phase-launch)', bMin:0, bMax:500, bStep:1, bDefault:18}
+    {key:'always', label:'상시 운영', sub:'마일스톤과 무관하게 캠페인 기간 내내 지속되는 기반 활동입니다.', color:'var(--phase-always)', bMin:0, bMax:30, bStep:0.1, bDefault:0.5, presets:[0.3,0.5,1,2]},
+    {key:'cbt1',   label:'CBT1', sub:'1차 비공개 테스트. 소규모 인원 대상으로 핵심 피드백 수집과 초기 화제성 확보가 목표입니다.', color:'var(--phase-cbt1)', bMin:0, bMax:50, bStep:0.5, bDefault:1.5, presets:[0.5,1.5,3,5]},
+    {key:'cbt2',   label:'CBT2', sub:'오픈베타에 가까운 2차 테스트. 대중 인지도 확산과 위시리스트 전환이 목표입니다.', color:'var(--phase-cbt2)', bMin:0, bMax:150, bStep:0.5, bDefault:4, presets:[1,4,10,20]},
+    {key:'launch', label:'런칭', sub:'출시 임박 ~ 출시 직후 2주. 최대 화제성과 초기 매출 임팩트에 집중합니다.', color:'var(--phase-launch)', bMin:0, bMax:500, bStep:1, bDefault:18, presets:[5,18,30,50]}
   ];
+  var PHASE_MAP = {}; PHASES.forEach(function(p){ PHASE_MAP[p.key] = p; });
 
   var TIER_COLOR = {S:'var(--tier-s)', M:'var(--tier-m)', L:'var(--tier-l)', XL:'var(--tier-xl)'};
   var TIER_LABEL = {S:'S · 1,000만원 이하', M:'M · 1,000만~5,000만원', L:'L · 5,000만~3억원', XL:'XL · 3억원 이상'};
-
   var OWNER_LABEL = {pub:'퍼블리셔', dev:'개발사', co:'공동 부담'};
+  var ITEM_TYPES = ['CRM/커뮤니티','PR/미디어','영상 제작','인플루언서','퍼포먼스','플랫폼','브랜드 광고','행사 참여','기타'];
 
+  // ---- Catalog: each item lists every phase it is ELIGIBLE to appear in ----
   var ITEMS = [
-    // ---- 상시 운영 ----
-    {id:'always-1',phase:'always',tier:'S',owner:'pub',type:'CRM/커뮤니티',min:300,max:800,pr:1,lead:1,title:'공식 SNS·디스코드 채널 운영',desc:'인스타그램/X/디스코드에 세계관·아트 콘텐츠와 개발 근황을 정기 게시.',ch:'SNS/디스코드',kpi:'팔로워 성장률, 디스코드 활성 멤버 수'},
-    {id:'always-2',phase:'always',tier:'S',owner:'pub',type:'CRM/커뮤니티',min:300,max:800,pr:2,lead:1,title:'사전예약·유저 리마인드 CRM',desc:'등록 유저 대상 마일스톤별 이메일·앱 푸시 리마인드 발송.',ch:'CRM',kpi:'오픈율, 재방문율'},
-    {id:'always-3',phase:'always',tier:'S',owner:'pub',type:'CRM/커뮤니티',min:500,max:1500,pr:3,lead:1,title:'리텐션 CRM·푸시 캠페인',desc:'휴면 위험 유저 대상 맞춤 푸시·이메일 발송.',ch:'CRM',kpi:'재접속률, 이탈 방지율'},
-    {id:'always-4',phase:'always',tier:'S',owner:'pub',type:'CRM/커뮤니티',min:500,max:1000,pr:4,lead:1,title:'커뮤니티 실시간 대응 운영',desc:'인벤·루리웹·디시 등 주요 커뮤니티 반응 모니터링 및 공식 대응.',ch:'커뮤니티',kpi:'여론 감성 지수, 이슈 응대 소요시간'},
-    {id:'always-11',phase:'always',tier:'S',owner:'pub',type:'영상 제작',min:500,max:1500,pr:5,lead:2,title:'숏폼(쇼츠·릴스·틱톡) 콘텐츠 제작',desc:'인스타 릴스·유튜브 쇼츠·틱톡용 세로형 클립을 매주 제작해 상시 배포.',ch:'콘텐츠 제작',kpi:'조회수, 공유수'},
-    {id:'always-5',phase:'always',tier:'S',owner:'co',type:'영상 제작',min:500,max:2000,pr:6,lead:2,title:'데브다이어리 영상 시리즈',desc:'개발진이 핵심 시스템·아트 디렉션을 설명하는 유튜브 영상 제작. 제작비는 퍼블리셔, 출연·게임 정보는 개발사가 담당.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
-    {id:'always-6',phase:'always',tier:'M',owner:'pub',type:'PR/미디어',min:1500,max:3000,pr:7,lead:3,title:'게임 전문매체 프리뷰·인터뷰',desc:'국내외 게임 매체에 개발자 인터뷰 및 플레이 프리뷰 기사 배포.',ch:'PR/미디어',kpi:'기사 노출수, 보도 매체 수'},
-    {id:'always-7',phase:'always',tier:'M',owner:'pub',type:'PR/미디어',min:1000,max:3000,pr:8,lead:2,title:'상시 PR·미디어 관계 관리',desc:'주요 매체와의 관계 유지, 보도자료 상시 배포 및 엠바고 조율.',ch:'PR/미디어',kpi:'보도 건수, 매체 우호도'},
-    {id:'always-8',phase:'always',tier:'M',owner:'pub',type:'퍼포먼스',min:1500,max:4000,pr:9,lead:1,title:'성과 기반 리타겟팅 광고',desc:'위시리스트 등록 후 미전환 유저 대상 리타겟팅 광고로 재방문을 유도.',ch:'퍼포먼스 광고',kpi:'재방문율, 전환 CPA'},
-    {id:'always-9',phase:'always',tier:'M',owner:'pub',type:'CRM/커뮤니티',min:2000,max:5000,pr:10,lead:2,title:'UGC 캠페인 및 시상',desc:'유저 제작 콘텐츠(영상·팬아트) 상시 공모전 및 시상.',ch:'커뮤니티',kpi:'UGC 제출 건수, 확산량'},
-    {id:'always-10',phase:'always',tier:'S',owner:'co',type:'행사 참여',min:500,max:1500,pr:11,lead:8,ownDate:true,eventDate:'2026-10-19',eventNote:'Steam Next Fest는 연 3회(2월·6월·10월경) 진행. 다음 회차 일정은 스팀 피쳐드 이벤트 캘린더에서 확인.',title:'Steam Next Fest 데모 참가',desc:'심사 없는 선착순 등록제 쇼케이스. 데모 빌드는 개발사, 등록·마케팅 운영은 퍼블리셔가 담당.',ch:'플랫폼 제휴',kpi:'데모 플레이 수, 위시리스트 순증',link:{url:'https://claude.ai/artifact/7Kq7YBKJBq6oWQ6apVLFSd',label:'스팀 피쳐드 이벤트 캘린더에서 일정 확인'}},
-    {id:'always-13',phase:'always',tier:'M',owner:'pub',type:'영상 제작',min:2000,max:5000,pr:12,lead:8,title:'로컬라이제이션 더빙·자막 제작',desc:'주요 트레일러·인게임 컷신을 영어·스페인어·포르투갈어 등 주요 언어로 더빙/자막화.',ch:'콘텐츠 제작',kpi:'언어별 시청 완료율'},
-    {id:'always-12',phase:'always',tier:'L',owner:'pub',type:'인플루언서',min:5000,max:15000,pr:13,lead:6,scope:'NA/EU 시장 한정',title:'NA/EU 인플루언서 아웃리치',desc:'YouTube/Twitch MMORPG·오픈월드 논타겟팅 장르 크리에이터 및 내부 VIP 리스트 대상 협찬 콘텐츠 캠페인. 후보 1,999명, 이메일 확보 764명, 현재 전원 미접촉.',ch:'인플루언서',kpi:'협찬 영상 조회수, NA/EU 커뮤니티 언급량',link:{url:'https://samowab.github.io/kol-tracker/na-eu/',label:'NA/EU KOL 트래커에서 컨택 현황 보기'}},
+    // 상시 운영 (always-only: not tied to a specific milestone)
+    {id:'always-1',phases:['always'],tier:'S',owner:'pub',type:'CRM/커뮤니티',min:300,max:800,pr:1,lead:7,title:'공식 SNS·디스코드 채널 운영',desc:'인스타그램/X/디스코드에 세계관·아트 콘텐츠와 개발 근황을 정기 게시.',ch:'SNS/디스코드',kpi:'팔로워 성장률, 디스코드 활성 멤버 수'},
+    {id:'always-2',phases:['always'],tier:'S',owner:'pub',type:'CRM/커뮤니티',min:300,max:800,pr:2,lead:7,title:'사전예약·유저 리마인드 CRM',desc:'등록 유저 대상 마일스톤별 이메일·앱 푸시 리마인드 발송.',ch:'CRM',kpi:'오픈율, 재방문율'},
+    {id:'always-3',phases:['always'],tier:'S',owner:'pub',type:'CRM/커뮤니티',min:500,max:1500,pr:3,lead:7,title:'리텐션 CRM·푸시 캠페인',desc:'휴면 위험 유저 대상 맞춤 푸시·이메일 발송.',ch:'CRM',kpi:'재접속률, 이탈 방지율'},
+    {id:'always-4',phases:['always'],tier:'S',owner:'pub',type:'CRM/커뮤니티',min:500,max:1000,pr:4,lead:7,title:'커뮤니티 실시간 대응 운영',desc:'인벤·루리웹·디시 등 주요 커뮤니티 반응 모니터링 및 공식 대응.',ch:'커뮤니티',kpi:'여론 감성 지수, 이슈 응대 소요시간'},
+    {id:'always-11',phases:['always'],tier:'S',owner:'pub',type:'영상 제작',min:500,max:1500,pr:5,lead:8,title:'숏폼(쇼츠·릴스·틱톡) 콘텐츠 제작',desc:'인스타 릴스·유튜브 쇼츠·틱톡용 세로형 클립을 매주 제작해 상시 배포.',ch:'콘텐츠 제작',kpi:'조회수, 공유수'},
+    {id:'always-5',phases:['always'],tier:'S',owner:'co',type:'영상 제작',min:500,max:2000,pr:6,lead:8,title:'데브다이어리 영상 시리즈',desc:'개발진이 핵심 시스템·아트 디렉션을 설명하는 유튜브 영상 제작. 제작비는 퍼블리셔, 출연·게임 정보는 개발사가 담당.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
+    {id:'always-6',phases:['always'],tier:'M',owner:'pub',type:'PR/미디어',min:1500,max:3000,pr:7,lead:9,title:'게임 전문매체 프리뷰·인터뷰',desc:'국내외 게임 매체에 개발자 인터뷰 및 플레이 프리뷰 기사 배포.',ch:'PR/미디어',kpi:'기사 노출수, 보도 매체 수'},
+    {id:'always-7',phases:['always'],tier:'M',owner:'pub',type:'PR/미디어',min:1000,max:3000,pr:8,lead:8,title:'상시 PR·미디어 관계 관리',desc:'주요 매체와의 관계 유지, 보도자료 상시 배포 및 엠바고 조율.',ch:'PR/미디어',kpi:'보도 건수, 매체 우호도'},
+    {id:'always-8',phases:['always'],tier:'M',owner:'pub',type:'퍼포먼스',min:1500,max:4000,pr:9,lead:7,title:'성과 기반 리타겟팅 광고',desc:'위시리스트 등록 후 미전환 유저 대상 리타겟팅 광고로 재방문을 유도.',ch:'퍼포먼스 광고',kpi:'재방문율, 전환 CPA'},
+    {id:'always-9',phases:['always'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:2000,max:5000,pr:10,lead:8,title:'UGC 캠페인 및 시상',desc:'유저 제작 콘텐츠(영상·팬아트) 상시 공모전 및 시상.',ch:'커뮤니티',kpi:'UGC 제출 건수, 확산량'},
+    {id:'always-10',phases:['always'],tier:'S',owner:'co',type:'행사 참여',min:500,max:1500,pr:11,lead:14,ownDate:true,eventDate:'2026-10-19',eventNote:'Steam Next Fest는 연 3회(2월·6월·10월경) 진행.',title:'Steam Next Fest 데모 참가',desc:'심사 없는 선착순 등록제 쇼케이스. 데모 빌드는 개발사, 등록·마케팅 운영은 퍼블리셔가 담당.',ch:'플랫폼 제휴',kpi:'데모 플레이 수, 위시리스트 순증'},
+    {id:'always-13',phases:['always'],tier:'M',owner:'pub',type:'영상 제작',min:2000,max:5000,pr:12,lead:14,title:'로컬라이제이션 더빙·자막 제작',desc:'주요 트레일러·인게임 컷신을 영어·스페인어·포르투갈어 등 주요 언어로 더빙/자막화.',ch:'콘텐츠 제작',kpi:'언어별 시청 완료율'},
+    {id:'always-12',phases:['always'],tier:'L',owner:'pub',type:'인플루언서',min:5000,max:15000,pr:13,lead:12,scope:'NA/EU 시장 한정',title:'NA/EU 인플루언서 아웃리치',desc:'YouTube/Twitch MMORPG·오픈월드 논타겟팅 장르 크리에이터 및 내부 VIP 리스트 대상 협찬 콘텐츠 캠페인.',ch:'인플루언서',kpi:'협찬 영상 조회수, NA/EU 커뮤니티 언급량'},
 
-    // ---- CBT1 ----
-    {id:'cbt1-1',phase:'cbt1',tier:'M',owner:'pub',type:'퍼포먼스',min:1500,max:3000,pr:1,lead:2,title:'베타 테스터 모집 퍼포먼스 광고',desc:'메타·구글 UAC로 CBT1 참여 신청을 유도.',ch:'퍼포먼스 광고',kpi:'신청자 수, CPA'},
-    {id:'cbt1-2',phase:'cbt1',tier:'M',owner:'pub',type:'퍼포먼스',min:2000,max:4000,pr:2,lead:3,title:'스팀 위시리스트 전환 캠페인',desc:'구글/메타 UAC와 스팀 페이지 리타게팅으로 위시리스트 추가를 유도.',ch:'퍼포먼스 광고',kpi:'위시리스트 추가 수, CPA'},
-    {id:'cbt1-5',phase:'cbt1',tier:'S',owner:'pub',type:'PR/미디어',min:500,max:1500,pr:3,lead:2,title:'CBT1 피드백 반영 PR 콘텐츠',desc:'테스트 피드백을 실제로 개선한 내용을 정리해 신뢰도 제고 콘텐츠로 발행.',ch:'PR/미디어',kpi:'콘텐츠 도달수, 호감도 변화'},
-    {id:'cbt1-3',phase:'cbt1',tier:'M',owner:'pub',type:'CRM/커뮤니티',min:1000,max:2000,pr:4,lead:3,title:'CBT1 참여 리워드 이벤트',desc:'테스트 참여·피드백 제출 유저 대상 인게임 아이템/경품 이벤트.',ch:'CRM',kpi:'피드백 제출률, 참여율'},
-    {id:'cbt1-7',phase:'cbt1',tier:'S',owner:'co',type:'영상 제작',min:800,max:2000,pr:5,lead:3,title:'CBT1 플레이 가이드 영상 제작',desc:'신규 유저 온보딩을 돕는 튜토리얼·클래스 가이드 영상 제작. 게임 정보는 개발사 자문, 제작비는 퍼블리셔 부담.',ch:'콘텐츠 제작',kpi:'영상 조회수, 튜토리얼 이탈률 감소'},
-    {id:'cbt1-8',phase:'cbt1',tier:'S',owner:'co',type:'PR/미디어',min:500,max:1200,pr:6,lead:4,title:'CBT1 프레스 프리뷰 빌드 배포',desc:'주요 매체·크리에이터에게 엠바고 프리뷰 빌드를 배포해 CBT1 오픈 전 기사·영상을 예약. 빌드 제공은 개발사, 배포·엠바고 관리는 퍼블리셔.',ch:'PR/미디어',kpi:'예약 기사·영상 수'},
-    {id:'cbt1-4',phase:'cbt1',tier:'M',owner:'pub',type:'인플루언서',min:2000,max:4000,pr:7,lead:4,title:'마이크로 인플루언서 시딩',desc:'구독자 5만~30만 게임 유튜버 10~20인 대상 정보 제공 및 협찬 콘텐츠 제작.',ch:'인플루언서',kpi:'영상 조회수 합계, 브랜드 언급량'},
-    {id:'cbt1-6',phase:'cbt1',tier:'M',owner:'pub',type:'인플루언서',min:3000,max:6000,pr:8,lead:5,title:'소규모 스트리머 공동방송',desc:'중소 규모 스트리머 다수와 CBT1 첫 플레이 공동방송 협업.',ch:'인플루언서',kpi:'최대 동시시청자 수, 유입 트래픽'},
-
-    // ---- CBT2 ----
-    {id:'cbt2-3',phase:'cbt2',tier:'M',owner:'pub',type:'플랫폼',min:1000,max:5000,pr:1,lead:6,title:'스토어 메인 피처링 협의',desc:'스팀·PS스토어·MS스토어 메인 노출 협의 및 프로모션 배너 소재 제작.',ch:'플랫폼 제휴',kpi:'피처링 노출 기간, 유입 전환율'},
-    {id:'cbt2-1',phase:'cbt2',tier:'L',owner:'pub',type:'인플루언서',min:8000,max:20000,pr:2,lead:6,title:'대형 스트리머 공동방송',desc:'동시접속 상위 스트리머 다수와 CBT2 공동방송 협업.',ch:'인플루언서',kpi:'최대 동시시청자 수, 유입 트래픽'},
-    {id:'cbt2-9',phase:'cbt2',tier:'M',owner:'co',type:'영상 제작',min:3000,max:7000,pr:3,lead:6,title:'CBT2 게임플레이 쇼케이스 영상',desc:'신규 클래스·던전·핵심 시스템 활용 콘텐츠를 담은 8~12분 쇼케이스 영상 제작. 게임 빌드·에셋은 개발사, 제작비는 퍼블리셔.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
-    {id:'cbt2-2',phase:'cbt2',tier:'L',owner:'pub',type:'인플루언서',min:6000,max:15000,pr:4,lead:6,scope:'CN 시장 한정',title:'Bilibili KOL 아웃리치 (CN)',desc:'MMO·오픈월드 장르 전문 Bilibili 크리에이터 40인 대상 협찬 콘텐츠 캠페인. 합산 팔로워 약 2,300만명, 현재 전원 미접촉 상태로 컨택 착수가 필요.',ch:'인플루언서',kpi:'협찬 영상 조회수, CN 커뮤니티 언급량',link:{url:'https://claude.ai/artifact/S9K4UhcqzVVhygPZSDCsAj',label:'Bilibili KOL 트래커에서 컨택 현황 보기'}},
-    {id:'cbt2-5',phase:'cbt2',tier:'M',owner:'pub',type:'CRM/커뮤니티',min:3000,max:6000,pr:5,lead:4,title:'CBT2 참여 리워드 대규모 이벤트',desc:'CBT1 대비 확대된 규모의 참여·피드백 리워드 이벤트.',ch:'CRM',kpi:'참여율, 재참여율(CBT1 대비)'},
-    {id:'cbt2-6',phase:'cbt2',tier:'L',owner:'co',type:'PR/미디어',min:5000,max:15000,pr:6,lead:6,title:'프레스 쇼케이스·미디어데이',desc:'CBT2 빌드를 매체·크리에이터에 공개하는 쇼케이스 개최. 발표·시연은 개발사, 행사 운영비는 퍼블리셔.',ch:'PR/미디어',kpi:'참석 매체 수, 보도량'},
-    {id:'cbt2-4',phase:'cbt2',tier:'L',owner:'pub',type:'인플루언서',min:15000,max:40000,pr:7,lead:8,title:'대형 인플루언서 협업 캠페인',desc:'메가 인플루언서·유명 크리에이터와 CBT2 홍보 콘텐츠 공동 제작.',ch:'인플루언서',kpi:'캠페인 도달수, 참여율'},
-    {id:'cbt2-7',phase:'cbt2',tier:'L',owner:'co',type:'행사 참여',min:30000,max:80000,pr:8,lead:10,ownDate:true,eventDate:'2026-11-19',eventNote:'매년 11월경, 부산 벡스코에서 개최.',title:'지스타 부스 출품',desc:'지스타 체험 부스 운영, 실사용자 대상 시연 및 굿즈 배포. 국내 게임쇼 특성상 개발사·퍼블리셔 공동 부스로 운영되는 경우가 많음.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 현장 만족도'},
-    {id:'cbt2-10',phase:'cbt2',tier:'L',owner:'pub',type:'행사 참여',min:15000,max:35000,pr:9,lead:10,ownDate:true,eventDate:'',eventNote:'매년 8~9월경 개최(개최지·정확한 일정은 연도별 공지 확인 필요).',title:'PAX 참가',desc:'PAX 부스 참가로 북미 코어 게이머 대상 실사용자 시연.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 북미 커뮤니티 언급량'},
-    {id:'cbt2-8',phase:'cbt2',tier:'L',owner:'pub',type:'행사 참여',min:30000,max:70000,pr:10,lead:12,ownDate:true,eventDate:'',eventNote:'매년 8월경, 독일 쾰른에서 개최. 익년도 정확한 날짜는 통상 전년도 하반기에 공지.',title:'gamescom 참가',desc:'gamescom 공식 부스 또는 쇼케이스 편성 참가로 유럽 시장 최대 오프라인 노출을 확보.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 유럽 매체 보도량'},
-
-    // ---- 런칭 ----
-    {id:'launch-7',phase:'launch',tier:'M',owner:'pub',type:'PR/미디어',min:1000,max:3000,pr:1,lead:3,title:'출시 PR 배포 및 리뷰 엠바고 관리',desc:'출시 보도자료 배포, 매체별 리뷰 엠바고 일정 관리.',ch:'PR/미디어',kpi:'보도 건수, 리뷰 평균 평점'},
-    {id:'launch-6',phase:'launch',tier:'M',owner:'pub',type:'CRM/커뮤니티',min:2000,max:5000,pr:2,lead:2,title:'커뮤니티 총공 이벤트',desc:'출시 인증샷·리뷰 작성 이벤트로 초기 화제성을 확산.',ch:'커뮤니티',kpi:'이벤트 참여 게시물 수'},
-    {id:'launch-3',phase:'launch',tier:'XL',owner:'co',type:'인플루언서',min:30000,max:60000,pr:3,lead:4,title:'런칭 쇼케이스 생중계',desc:'출시 당일 대형 스트리머 다수가 참여하는 생중계 총공 이벤트. 개발사 대표 출연 조율 필요, 집행비는 퍼블리셔 부담.',ch:'인플루언서',kpi:'최대 동시 시청자 수, 실시간 유입량'},
-    {id:'launch-10',phase:'launch',tier:'L',owner:'co',type:'행사 참여',min:5000,max:15000,pr:4,lead:6,ownDate:true,eventDate:'2026-12-10',eventNote:'The Game Awards는 매년 12월 둘째~셋째 주 목요일, LA 피콕 시어터에서 진행.',title:'The Game Awards 트레일러 공개',desc:'TGA 무대에서 런칭 트레일러 또는 신규 콘텐츠를 공개해 글로벌 동시 노출을 확보. 트레일러 소재는 개발사, 슬롯 확보·홍보비는 퍼블리셔.',ch:'브랜드 광고',kpi:'생방송 노출수, SNS 언급량 급증'},
-    {id:'launch-9',phase:'launch',tier:'XL',owner:'co',type:'영상 제작',min:20000,max:50000,pr:5,lead:16,title:'런칭 시네마틱 트레일러 제작',desc:'풀 프로덕션 CG·인게임 합성 시네마틱 트레일러 제작. 게임 에셋·엔진 작업은 개발사, 외주 제작비는 퍼블리셔 부담이 일반적. 제작 특성상 최소 4개월 전 착수가 필요.',ch:'콘텐츠 제작',kpi:'조회수, 공유수, 트레일러 완주율'},
-    {id:'launch-8',phase:'launch',tier:'L',owner:'pub',type:'인플루언서',min:10000,max:25000,pr:6,lead:6,title:'런칭 연계 인플루언서 리뷰 캠페인',desc:'출시 직후 대형 리뷰어·크리에이터 다수에게 얼리 액세스 빌드 제공, 리뷰 콘텐츠를 집중 확보.',ch:'인플루언서',kpi:'리뷰 콘텐츠 수, 평균 평점'},
-    {id:'launch-1',phase:'launch',tier:'XL',owner:'pub',type:'브랜드 광고',min:30000,max:70000,pr:7,lead:6,title:'옥외광고(OOH) 캠페인',desc:'지하철·버스·전광판 등 주요 거점 옥외광고 집행.',ch:'오프라인/BTL',kpi:'노출량(GRP), 브랜드 인지도 상승폭'},
-    {id:'launch-5',phase:'launch',tier:'L',owner:'pub',type:'행사 참여',min:10000,max:30000,pr:8,lead:8,title:'런칭 기념 오프라인 팝업',desc:'번화가에 체험존 팝업스토어 운영, 굿즈 판매 및 포토존 구성.',ch:'오프라인/BTL',kpi:'방문객 수, SNS 인증 게시물 수'},
-    {id:'launch-11',phase:'launch',tier:'M',owner:'pub',type:'행사 참여',min:10000,max:25000,pr:9,lead:10,ownDate:true,eventDate:'',eventNote:'연 1~2회 개최되나 최근 일정 변동이 잦아 공식 발표 확인이 필요.',title:'TwitchCon 참가',desc:'스트리머·시청자가 밀집한 행사에서 부스 운영 및 굿즈 배포.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 스트리머 협업 성사 건수'},
-    {id:'launch-4',phase:'launch',tier:'XL',owner:'pub',type:'퍼포먼스',min:50000,max:200000,pr:10,lead:2,title:'대규모 퍼포먼스 마케팅 집행',desc:'UAC·검색광고·디스플레이 광고를 출시 2주간 집중 집행.',ch:'퍼포먼스 광고',kpi:'설치·구매 전환수, ROAS'},
-    {id:'launch-2',phase:'launch',tier:'XL',owner:'pub',type:'브랜드 광고',min:50000,max:150000,pr:11,lead:10,title:'TV·디지털 통합 CF',desc:'TV CF 및 디지털 동영상 광고를 통합 제작·집행.',ch:'브랜드 광고',kpi:'도달률, 영상 완료율'}
+    // 테스트/런칭 구간에 걸쳐 재사용 가능한 공용 풀 (여러 구간에 동시 배정 가능)
+    {id:'pr-feedback',phases:['cbt1','cbt2'],tier:'S',owner:'pub',type:'PR/미디어',min:500,max:1500,pr:1,lead:8,title:'베타 피드백 반영 PR 콘텐츠',desc:'테스트 피드백을 실제로 개선한 내용을 정리해 신뢰도 제고 콘텐츠로 발행.',ch:'PR/미디어',kpi:'콘텐츠 도달수, 호감도 변화'},
+    {id:'crm-reward-small',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:1000,max:2000,pr:2,lead:9,title:'베타 참여 리워드 이벤트',desc:'테스트 참여·피드백 제출 유저 대상 인게임 아이템/경품 이벤트.',ch:'CRM',kpi:'피드백 제출률, 참여율'},
+    {id:'video-guide',phases:['cbt1','cbt2'],tier:'S',owner:'co',type:'영상 제작',min:800,max:2000,pr:3,lead:9,title:'플레이 가이드 영상 제작',desc:'신규 유저 온보딩을 돕는 튜토리얼·클래스 가이드 영상 제작. 게임 정보는 개발사 자문, 제작비는 퍼블리셔 부담.',ch:'콘텐츠 제작',kpi:'영상 조회수, 튜토리얼 이탈률 감소'},
+    {id:'pr-preview-build',phases:['cbt1','cbt2'],tier:'S',owner:'co',type:'PR/미디어',min:500,max:1200,pr:4,lead:10,title:'프레스 프리뷰 빌드 배포',desc:'주요 매체·크리에이터에게 엠바고 프리뷰 빌드를 배포해 테스트 오픈 전 기사·영상을 예약. 빌드 제공은 개발사, 배포·엠바고 관리는 퍼블리셔.',ch:'PR/미디어',kpi:'예약 기사·영상 수'},
+    {id:'perf-beta-recruit',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'퍼포먼스',min:1500,max:3000,pr:5,lead:8,title:'베타 테스터 모집 퍼포먼스 광고',desc:'메타·구글 UAC로 테스트 참여 신청을 유도.',ch:'퍼포먼스 광고',kpi:'신청자 수, CPA'},
+    {id:'perf-wishlist',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'퍼포먼스',min:2000,max:4000,pr:6,lead:9,title:'스팀 위시리스트 전환 캠페인',desc:'구글/메타 UAC와 스팀 페이지 리타게팅으로 위시리스트 추가를 유도.',ch:'퍼포먼스 광고',kpi:'위시리스트 추가 수, CPA'},
+    {id:'inf-micro',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'인플루언서',min:2000,max:4000,pr:7,lead:10,title:'마이크로 인플루언서 시딩',desc:'구독자 5만~30만 게임 유튜버 10~20인 대상 정보 제공 및 협찬 콘텐츠 제작.',ch:'인플루언서',kpi:'영상 조회수 합계, 브랜드 언급량'},
+    {id:'platform-featuring',phases:['cbt1','cbt2','launch'],tier:'M',owner:'pub',type:'플랫폼',min:1000,max:5000,pr:8,lead:12,title:'스토어 메인 피처링 협의',desc:'스팀·PS스토어·MS스토어 메인 노출 협의 및 프로모션 배너 소재 제작.',ch:'플랫폼 제휴',kpi:'피처링 노출 기간, 유입 전환율'},
+    {id:'pr-launch-embargo',phases:['launch'],tier:'M',owner:'pub',type:'PR/미디어',min:1000,max:3000,pr:9,lead:9,title:'출시 PR 배포 및 리뷰 엠바고 관리',desc:'출시 보도자료 배포, 매체별 리뷰 엠바고 일정 관리.',ch:'PR/미디어',kpi:'보도 건수, 리뷰 평균 평점'},
+    {id:'community-rally',phases:['cbt2','launch'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:2000,max:5000,pr:10,lead:8,title:'커뮤니티 총공 이벤트',desc:'인증샷·리뷰 작성 이벤트로 화제성을 확산.',ch:'커뮤니티',kpi:'이벤트 참여 게시물 수'},
+    {id:'inf-stream-small',phases:['cbt1','cbt2'],tier:'M',owner:'pub',type:'인플루언서',min:3000,max:6000,pr:11,lead:11,title:'소규모 스트리머 공동방송',desc:'중소 규모 스트리머 다수와 첫 플레이 공동방송 협업.',ch:'인플루언서',kpi:'최대 동시시청자 수, 유입 트래픽'},
+    {id:'video-showcase',phases:['cbt1','cbt2','launch'],tier:'M',owner:'co',type:'영상 제작',min:3000,max:7000,pr:12,lead:12,title:'게임플레이 쇼케이스 영상',desc:'신규 클래스·던전·핵심 시스템 활용 콘텐츠를 담은 8~12분 쇼케이스 영상 제작. 게임 빌드·에셋은 개발사, 제작비는 퍼블리셔.',ch:'콘텐츠 제작',kpi:'조회수, 평균 시청 지속시간'},
+    {id:'crm-reward-large',phases:['cbt2','launch'],tier:'M',owner:'pub',type:'CRM/커뮤니티',min:3000,max:6000,pr:13,lead:10,title:'대규모 참여 리워드 이벤트',desc:'이전 라운드 대비 확대된 규모의 참여·피드백 리워드 이벤트.',ch:'CRM',kpi:'참여율, 재참여율(직전 라운드 대비)'},
+    {id:'event-tga',phases:['cbt2','launch'],tier:'L',owner:'co',type:'행사 참여',min:5000,max:15000,pr:14,lead:12,ownDate:true,eventDate:'2026-12-10',eventNote:'The Game Awards는 매년 12월 둘째~셋째 주 목요일, LA 피콕 시어터에서 진행.',title:'The Game Awards 트레일러 공개',desc:'TGA 무대에서 트레일러 또는 신규 콘텐츠를 공개해 글로벌 동시 노출을 확보. 트레일러 소재는 개발사, 슬롯 확보·홍보비는 퍼블리셔.',ch:'브랜드 광고',kpi:'생방송 노출수, SNS 언급량 급증'},
+    {id:'pr-showcase',phases:['cbt2','launch'],tier:'L',owner:'co',type:'PR/미디어',min:5000,max:15000,pr:15,lead:12,title:'프레스 쇼케이스·미디어데이',desc:'최신 빌드를 매체·크리에이터에 공개하는 쇼케이스 개최. 발표·시연은 개발사, 행사 운영비는 퍼블리셔.',ch:'PR/미디어',kpi:'참석 매체 수, 보도량'},
+    {id:'inf-stream-large',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'인플루언서',min:8000,max:20000,pr:16,lead:12,title:'대형 스트리머 공동방송',desc:'동시접속 상위 스트리머 다수와 공동방송 협업.',ch:'인플루언서',kpi:'최대 동시시청자 수, 유입 트래픽'},
+    {id:'inf-bilibili-cn',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'인플루언서',min:6000,max:15000,pr:17,lead:12,scope:'CN 시장 한정',title:'Bilibili KOL 아웃리치 (CN)',desc:'MMO·오픈월드 장르 전문 Bilibili 크리에이터 대상 협찬 콘텐츠 캠페인.',ch:'인플루언서',kpi:'협찬 영상 조회수, CN 커뮤니티 언급량'},
+    {id:'event-twitchcon',phases:['cbt2','launch'],tier:'M',owner:'pub',type:'행사 참여',min:10000,max:25000,pr:18,lead:16,ownDate:true,eventDate:'',eventNote:'연 1~2회 개최되나 최근 일정 변동이 잦아 공식 발표 확인이 필요.',title:'TwitchCon 참가',desc:'스트리머·시청자가 밀집한 행사에서 부스 운영 및 굿즈 배포.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 스트리머 협업 성사 건수'},
+    {id:'event-popup',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'행사 참여',min:10000,max:30000,pr:19,lead:14,title:'오프라인 팝업 스토어',desc:'번화가에 체험존 팝업스토어 운영, 굿즈 판매 및 포토존 구성.',ch:'오프라인/BTL',kpi:'방문객 수, SNS 인증 게시물 수'},
+    {id:'inf-review-campaign',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'인플루언서',min:10000,max:25000,pr:20,lead:12,title:'인플루언서 리뷰 캠페인',desc:'대형 리뷰어·크리에이터 다수에게 얼리 액세스 빌드 제공, 리뷰 콘텐츠를 집중 확보.',ch:'인플루언서',kpi:'리뷰 콘텐츠 수, 평균 평점'},
+    {id:'inf-large-collab',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'인플루언서',min:15000,max:40000,pr:21,lead:14,title:'대형 인플루언서 협업 캠페인',desc:'메가 인플루언서·유명 크리에이터와 홍보 콘텐츠 공동 제작.',ch:'인플루언서',kpi:'캠페인 도달수, 참여율'},
+    {id:'event-pax',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'행사 참여',min:15000,max:35000,pr:22,lead:16,ownDate:true,eventDate:'',eventNote:'매년 8~9월경 개최(개최지·정확한 일정은 연도별 공지 확인 필요).',title:'PAX 참가',desc:'PAX 부스 참가로 북미 코어 게이머 대상 실사용자 시연.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 북미 커뮤니티 언급량'},
+    {id:'event-gstar',phases:['cbt2','launch'],tier:'L',owner:'co',type:'행사 참여',min:30000,max:80000,pr:23,lead:16,ownDate:true,eventDate:'2026-11-19',eventNote:'매년 11월경, 부산 벡스코에서 개최.',title:'지스타 부스 출품',desc:'지스타 체험 부스 운영, 실사용자 대상 시연 및 굿즈 배포. 국내 게임쇼 특성상 개발사·퍼블리셔 공동 부스로 운영되는 경우가 많음.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 현장 만족도'},
+    {id:'event-gamescom',phases:['cbt2','launch'],tier:'L',owner:'pub',type:'행사 참여',min:30000,max:70000,pr:24,lead:18,ownDate:true,eventDate:'',eventNote:'매년 8월경, 독일 쾰른에서 개최. 익년도 정확한 날짜는 통상 전년도 하반기에 공지.',title:'gamescom 참가',desc:'gamescom 공식 부스 또는 쇼케이스 편성 참가로 유럽 시장 최대 오프라인 노출을 확보.',ch:'오프라인/BTL',kpi:'부스 방문객 수, 유럽 매체 보도량'},
+    {id:'brand-ooh',phases:['cbt2','launch'],tier:'XL',owner:'pub',type:'브랜드 광고',min:30000,max:70000,pr:25,lead:12,title:'옥외광고(OOH) 캠페인',desc:'지하철·버스·전광판 등 주요 거점 옥외광고 집행.',ch:'오프라인/BTL',kpi:'노출량(GRP), 브랜드 인지도 상승폭'},
+    {id:'inf-live-showcase',phases:['launch'],tier:'XL',owner:'co',type:'인플루언서',min:30000,max:60000,pr:26,lead:10,title:'런칭 쇼케이스 생중계',desc:'출시 당일 대형 스트리머 다수가 참여하는 생중계 총공 이벤트. 개발사 대표 출연 조율 필요, 집행비는 퍼블리셔 부담.',ch:'인플루언서',kpi:'최대 동시 시청자 수, 실시간 유입량'},
+    {id:'video-cinematic',phases:['cbt2','launch'],tier:'XL',owner:'co',type:'영상 제작',min:20000,max:50000,pr:27,lead:22,title:'시네마틱 트레일러 제작',desc:'풀 프로덕션 CG·인게임 합성 시네마틱 트레일러 제작. 게임 에셋·엔진 작업은 개발사, 외주 제작비는 퍼블리셔 부담이 일반적. 제작 특성상 최소 4개월 전 착수가 필요.',ch:'콘텐츠 제작',kpi:'조회수, 공유수, 트레일러 완주율'},
+    {id:'perf-launch-mass',phases:['launch'],tier:'XL',owner:'pub',type:'퍼포먼스',min:50000,max:200000,pr:28,lead:8,title:'대규모 퍼포먼스 마케팅 집행',desc:'UAC·검색광고·디스플레이 광고를 출시 2주간 집중 집행.',ch:'퍼포먼스 광고',kpi:'설치·구매 전환수, ROAS'},
+    {id:'brand-tv-cf',phases:['cbt2','launch'],tier:'XL',owner:'pub',type:'브랜드 광고',min:50000,max:150000,pr:29,lead:16,title:'TV·디지털 통합 CF',desc:'TV CF 및 디지털 동영상 광고를 통합 제작·집행.',ch:'브랜드 광고',kpi:'도달률, 영상 완료율'}
   ];
-
-  var PHASE_MAP = {};
-  PHASES.forEach(function(p){ PHASE_MAP[p.key] = p; });
   ITEMS.forEach(function(it){ it.mid = (it.min + it.max) / 2; });
-  var ITEMS_BY_PHASE = {};
-  PHASES.forEach(function(p){ ITEMS_BY_PHASE[p.key] = ITEMS.filter(function(it){ return it.phase===p.key; }); });
 
-  var STORAGE_KEY = 'crono-odyssey-planner-v4';
-  var state = { budgets:{}, dates:{}, itemDates:{}, itemCost:{}, selected: new Set() };
+  var STORAGE_KEY = 'marketing-simulator-v6';
+  var PRESET_KEY = 'marketing-simulator-presets-v1';
+  var state = { budgets:{}, dates:{}, itemDates:{}, itemCost:{}, customItems:[], selected:new Set() };
   PHASES.forEach(function(p){ state.budgets[p.key] = p.bDefault; state.dates[p.key] = ''; });
   ITEMS.forEach(function(it){ if(it.ownDate) state.itemDates[it.id] = it.eventDate || ''; });
 
-  function getCost(item){
-    var o = state.itemCost[item.id];
+  function allItems(){ return ITEMS.concat(state.customItems); }
+  function ck(itemId, phaseKey){ return itemId+'::'+phaseKey; }
+  function newCustomId(){ return 'custom-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7); }
+
+  function getCost(item, phaseKey){
+    var o = state.itemCost[ck(item.id, phaseKey)];
     if(o && typeof o.min==='number' && typeof o.max==='number'){
       return {min:o.min, max:o.max, mid:(o.min+o.max)/2, custom:true};
     }
     return {min:item.min, max:item.max, mid:item.mid, custom:false};
   }
 
+  function sanitizeCustomItems(raw){
+    if(!Array.isArray(raw)) return [];
+    var out = [];
+    raw.forEach(function(it){
+      if(!it || typeof it.id!=='string' || typeof it.title!=='string' || !Array.isArray(it.phases)) return;
+      var phases = it.phases.filter(function(k){ return PHASE_MAP[k]; });
+      if(!phases.length) return;
+      var min = typeof it.min==='number' ? it.min : 0;
+      var max = typeof it.max==='number' ? it.max : min;
+      out.push({
+        id:it.id, custom:true, phases:phases,
+        tier: it.tier || 'M', owner: it.owner || 'pub', type: it.type || '기타',
+        min:min, max:max, mid:(min+max)/2, lead: typeof it.lead==='number' ? it.lead : 2,
+        title: it.title, desc: it.desc || '', ch: it.ch || '', kpi: it.kpi || '',
+        ownDate: !!it.ownDate
+      });
+    });
+    return out;
+  }
+
+  function snapshotState(){
+    return {
+      budgets: state.budgets, dates: state.dates, itemDates: state.itemDates,
+      itemCost: state.itemCost, customItems: state.customItems, selected: Array.from(state.selected)
+    };
+  }
+  function applySnapshot(data){
+    if(!data) return;
+    if(data.budgets) PHASES.forEach(function(p){ if(typeof data.budgets[p.key]==='number') state.budgets[p.key]=data.budgets[p.key]; });
+    if(data.dates) PHASES.forEach(function(p){ if(typeof data.dates[p.key]==='string') state.dates[p.key]=data.dates[p.key]; });
+    state.customItems = sanitizeCustomItems(data.customItems);
+    var validIds = {};
+    allItems().forEach(function(it){ validIds[it.id]=true; });
+    state.itemDates = {};
+    allItems().forEach(function(it){ if(it.ownDate) state.itemDates[it.id] = it.eventDate || ''; });
+    if(data.itemDates){
+      Object.keys(data.itemDates).forEach(function(id){
+        if(validIds[id] && typeof data.itemDates[id]==='string') state.itemDates[id] = data.itemDates[id];
+      });
+    }
+    state.itemCost = {};
+    if(data.itemCost){
+      var byItem = {}; allItems().forEach(function(it){ byItem[it.id]=it; });
+      Object.keys(data.itemCost).forEach(function(key){
+        var parts = key.split('::'); var id = parts[0], ph = parts[1];
+        var it = byItem[id];
+        if(!it || !ph || it.phases.indexOf(ph)===-1) return;
+        var o = data.itemCost[key];
+        if(o && typeof o.min==='number' && typeof o.max==='number') state.itemCost[key] = {min:o.min, max:o.max};
+      });
+    }
+    var validKeys = {};
+    allItems().forEach(function(it){ it.phases.forEach(function(ph){ validKeys[ck(it.id,ph)] = true; }); });
+    state.selected = new Set(Array.isArray(data.selected) ? data.selected.filter(function(k){ return validKeys[k]; }) : []);
+  }
   function loadState(){
     try{
       var raw = localStorage.getItem(STORAGE_KEY);
       if(!raw) return false;
-      var data = JSON.parse(raw);
-      if(data.budgets) PHASES.forEach(function(p){ if(typeof data.budgets[p.key]==='number') state.budgets[p.key]=data.budgets[p.key]; });
-      if(data.dates) PHASES.forEach(function(p){ if(typeof data.dates[p.key]==='string') state.dates[p.key]=data.dates[p.key]; });
-      if(data.itemDates) ITEMS.forEach(function(it){ if(it.ownDate && typeof data.itemDates[it.id]==='string') state.itemDates[it.id]=data.itemDates[it.id]; });
-      if(data.itemCost){
-        ITEMS.forEach(function(it){
-          var o = data.itemCost[it.id];
-          if(o && typeof o.min==='number' && typeof o.max==='number') state.itemCost[it.id] = {min:o.min, max:o.max};
-        });
-      }
-      if(Array.isArray(data.selected)) state.selected = new Set(data.selected);
+      applySnapshot(JSON.parse(raw));
       return true;
     }catch(e){ return false; }
   }
   function saveState(){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({budgets:state.budgets, dates:state.dates, itemDates:state.itemDates, itemCost:state.itemCost, selected:Array.from(state.selected)})); }catch(e){}
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshotState())); }catch(e){}
   }
 
   function parseDate(s){ if(!s) return null; var d = new Date(s+'T00:00:00'); return isNaN(d.getTime()) ? null : d; }
@@ -423,52 +498,51 @@
     if(diffDays===0) return 'D-Day';
     return diffDays>0 ? 'D-'+diffDays : 'D+'+Math.abs(diffDays);
   }
-
-  function effectiveDate(item){
+  function effectiveDate(item, phaseKey){
     if(item.ownDate) return parseDate(state.itemDates[item.id]);
-    return parseDate(state.dates[item.phase]);
+    return parseDate(state.dates[phaseKey]);
   }
-  function prepStartDate(item){
-    var eff = effectiveDate(item);
+  function prepStartDate(item, phaseKey){
+    var eff = effectiveDate(item, phaseKey);
     if(!eff) return null;
     return addDays(eff, -item.lead*7);
   }
-
   function fmtManwon(m){
     m = Math.round(m);
     if(Math.abs(m) >= 10000){
-      var eok = m/10000;
-      var t = Math.round(eok*10)/10;
+      var eok = m/10000; var t = Math.round(eok*10)/10;
       return (Number.isInteger(t)?t:t.toFixed(1))+'억원';
     }
     return m.toLocaleString('ko-KR')+'만원';
   }
   function fmtRange(min,max){ return fmtManwon(min)+' ~ '+fmtManwon(max); }
-
-  function budgetImpact(it){ return it.owner==='dev' ? 0 : getCost(it).mid; }
+  function budgetImpact(it, phaseKey){ return it.owner==='dev' ? 0 : getCost(it, phaseKey).mid; }
 
   function autoRecommendPhase(phaseKey){
     var budgetManwon = state.budgets[phaseKey]*10000;
-    var sorted = ITEMS_BY_PHASE[phaseKey].slice().sort(function(a,b){ return a.pr-b.pr; });
+    var candidates = allItems().filter(function(it){ return it.phases.indexOf(phaseKey)!==-1; }).sort(function(a,b){ return a.pr-b.pr; });
     var running = 0;
-    sorted.forEach(function(it){
-      var impact = budgetImpact(it);
-      if(running+impact <= budgetManwon){ state.selected.add(it.id); running += impact; }
-      else{ state.selected.delete(it.id); }
+    candidates.forEach(function(it){
+      var impact = budgetImpact(it, phaseKey);
+      var key = ck(it.id, phaseKey);
+      if(running+impact <= budgetManwon){ state.selected.add(key); running += impact; }
+      else{ state.selected.delete(key); }
     });
   }
-
+  function resetPhase(phaseKey){
+    allItems().forEach(function(it){ if(it.phases.indexOf(phaseKey)!==-1) state.selected.delete(ck(it.id, phaseKey)); });
+  }
   function computePhaseTotals(phaseKey){
     var sumMin=0,sumMax=0,sumMid=0,count=0,devMid=0,devCount=0;
-    ITEMS_BY_PHASE[phaseKey].forEach(function(it){
-      if(!state.selected.has(it.id)) return;
-      var c=getCost(it); count++;
+    allItems().forEach(function(it){
+      if(it.phases.indexOf(phaseKey)===-1) return;
+      if(!state.selected.has(ck(it.id, phaseKey))) return;
+      var c = getCost(it, phaseKey); count++;
       if(it.owner==='dev'){ devMid+=c.mid; devCount++; }
       else{ sumMin+=c.min; sumMax+=c.max; sumMid+=c.mid; }
     });
     return {sumMin:sumMin,sumMax:sumMax,sumMid:sumMid,count:count,devMid:devMid,devCount:devCount};
   }
-
   function healthFor(sumMid,budgetManwon){
     var pct = budgetManwon>0 ? (sumMid/budgetManwon*100) : 0;
     if(pct>100) return {key:'crit',label:'예산 초과',pct:pct};
@@ -476,207 +550,76 @@
     return {key:'good',label:'여유',pct:pct};
   }
 
-  // ---------- Build phase sections ----------
-  var container = document.getElementById('phaseSections');
-
-  function buildCard(it){
-    var card = document.createElement('article');
-    card.className = 'card'+(state.selected.has(it.id)?' checked':'');
-    card.dataset.id = it.id;
-
-    var top = document.createElement('div'); top.className='card-top';
-    var tier = document.createElement('span'); tier.className='tier-chip'; tier.title=TIER_LABEL[it.tier];
-    var tdot = document.createElement('span'); tdot.className='dot'; tdot.style.background=TIER_COLOR[it.tier];
-    tier.appendChild(tdot); tier.appendChild(document.createTextNode(it.tier));
-    top.appendChild(tier);
-    var ownerChip = document.createElement('span'); ownerChip.className='owner-chip owner-'+it.owner; ownerChip.textContent = OWNER_LABEL[it.owner];
-    top.appendChild(ownerChip);
-    var typeChip = document.createElement('span'); typeChip.className='type-chip'; typeChip.textContent = it.type;
-    top.appendChild(typeChip);
-    var costNow = getCost(it);
-    if(costNow.custom){
-      var cb2 = document.createElement('span'); cb2.className='custom-badge'; cb2.textContent='커스텀 금액';
-      top.appendChild(cb2);
-    }
-    if(it.scope){
-      var sc = document.createElement('span'); sc.className='scope-chip'; sc.textContent = it.scope;
-      top.appendChild(sc);
-    }
-    card.appendChild(top);
-
-    var h3 = document.createElement('h3'); h3.textContent = it.title; card.appendChild(h3);
-    var desc = document.createElement('p'); desc.className='desc'; desc.textContent = it.desc; card.appendChild(desc);
-
-    var meta = document.createElement('dl'); meta.className='meta';
-    var dt1=document.createElement('dt'); dt1.textContent='채널'; var dd1=document.createElement('dd'); dd1.textContent=it.ch;
-    var dt2=document.createElement('dt'); dt2.textContent='목표 KPI'; var dd2=document.createElement('dd'); dd2.textContent=it.kpi;
-    var dt3=document.createElement('dt'); dt3.textContent='준비 기간'; var dd3=document.createElement('dd'); dd3.textContent='실행 '+it.lead+'주 전부터';
-    meta.appendChild(dt1); meta.appendChild(dd1); meta.appendChild(dt2); meta.appendChild(dd2); meta.appendChild(dt3); meta.appendChild(dd3);
-    card.appendChild(meta);
-
-    if(it.ownDate){
-      var evRow = document.createElement('div'); evRow.className='event-date-row';
-      var evLabel = document.createElement('label'); evLabel.textContent='행사일'; var evId='ev-'+it.id; evLabel.setAttribute('for',evId);
-      var evInput = document.createElement('input'); evInput.type='date'; evInput.id=evId; evInput.value = state.itemDates[it.id]||'';
-      evInput.addEventListener('change', function(){ state.itemDates[it.id]=evInput.value; saveState(); updateAll(); });
-      evRow.appendChild(evLabel); evRow.appendChild(evInput);
-      card.appendChild(evRow);
-      if(it.eventNote){
-        var note = document.createElement('p'); note.className='event-note'; note.textContent = it.eventNote;
-        card.appendChild(note);
-      }
-    }
-
-    var eff = effectiveDate(it);
-    var prep = prepStartDate(it);
-    var schedRow = document.createElement('div'); schedRow.className='sched-row';
-    if(eff && prep){
-      var today = new Date(); today.setHours(0,0,0,0);
-      var prepChip = document.createElement('span'); prepChip.className='sched-chip prep'+(prep<today?' late':'');
-      prepChip.textContent = (prep<today?'⚠ 준비 시작 ':'준비 시작 ')+fmtDate(prep)+' ('+dDayLabel(prep)+')';
-      var execChip = document.createElement('span'); execChip.className='sched-chip exec';
-      execChip.textContent = '실행 '+fmtDate(eff)+' ('+dDayLabel(eff)+')';
-      schedRow.appendChild(prepChip); schedRow.appendChild(execChip);
-    } else {
-      var empty = document.createElement('span'); empty.className='sched-empty';
-      empty.textContent = it.ownDate ? '행사일을 입력하면 준비 일정이 계산됩니다.' : '이 구간의 예정일을 입력하면 준비 일정이 계산됩니다.';
-      schedRow.appendChild(empty);
-    }
-    card.appendChild(schedRow);
-
-    var foot = document.createElement('div'); foot.className='card-foot';
-    var costEdit = document.createElement('div'); costEdit.className='cost-edit';
-    var minInput = document.createElement('input'); minInput.type='number'; minInput.className='cost-input'; minInput.step='10'; minInput.min='0'; minInput.value=costNow.min;
-    var sep = document.createElement('span'); sep.className='cost-sep'; sep.textContent='~';
-    var maxInput = document.createElement('input'); maxInput.type='number'; maxInput.className='cost-input'; maxInput.step='10'; maxInput.min='0'; maxInput.value=costNow.max;
-    var unit = document.createElement('span'); unit.className='cost-unit'; unit.textContent='만원';
-    var resetBtn2 = document.createElement('button'); resetBtn2.type='button'; resetBtn2.className='reset-cost'; resetBtn2.title='기본 추정치로 초기화'; resetBtn2.textContent='↺';
-    resetBtn2.hidden = !costNow.custom;
-    function commitCost(){
-      var mn = parseFloat(minInput.value), mx = parseFloat(maxInput.value);
-      if(isNaN(mn)) mn = it.min; if(isNaN(mx)) mx = it.max;
-      if(mx < mn) mx = mn;
-      if(mn===it.min && mx===it.max){ delete state.itemCost[it.id]; }
-      else{ state.itemCost[it.id] = {min:mn, max:mx}; }
-      saveState(); updateAll();
-    }
-    minInput.addEventListener('change', commitCost);
-    maxInput.addEventListener('change', commitCost);
-    resetBtn2.addEventListener('click', function(){ delete state.itemCost[it.id]; saveState(); updateAll(); });
-    costEdit.appendChild(minInput); costEdit.appendChild(sep); costEdit.appendChild(maxInput); costEdit.appendChild(unit); costEdit.appendChild(resetBtn2);
-    foot.appendChild(costEdit);
-    var label = document.createElement('label'); label.className='toggle';
-    var cb = document.createElement('input'); cb.type='checkbox'; cb.checked = state.selected.has(it.id);
-    cb.addEventListener('change', function(){
-      if(cb.checked) state.selected.add(it.id); else state.selected.delete(it.id);
-      saveState(); updateAll();
-    });
-    label.appendChild(cb); label.appendChild(document.createTextNode('포함'));
-    foot.appendChild(label);
-    card.appendChild(foot);
-    return card;
-  }
-
+  // ================= Phase control panels =================
   var phaseRefs = {};
+  var phaseGrid = document.getElementById('phaseGrid');
 
-  function buildPhaseSection(p){
-    var section = document.createElement('section');
-    section.className = 'phase-block';
-    section.style.setProperty('--phase-color', p.color);
+  function buildPhasePanel(p){
+    var panel = document.createElement('div'); panel.className='phase-panel';
+    panel.style.setProperty('--phase-color', p.color);
 
-    var head = document.createElement('div'); head.className='phase-head';
+    var head = document.createElement('div'); head.className='phase-panel-head';
     var dot = document.createElement('span'); dot.className='phase-dot'; dot.style.background=p.color;
-    var htext = document.createElement('div');
-    var h2 = document.createElement('h2');
-    var h2label = document.createElement('span'); h2label.textContent = p.label;
-    var ddayBadge = document.createElement('span'); ddayBadge.className='dday-badge'; ddayBadge.hidden = true;
-    h2.appendChild(h2label); h2.appendChild(ddayBadge);
-    var sub = document.createElement('p'); sub.className='phase-sub'; sub.textContent = p.sub;
-    htext.appendChild(h2); htext.appendChild(sub);
-    head.appendChild(dot); head.appendChild(htext);
-    section.appendChild(head);
+    var h3 = document.createElement('h3'); h3.textContent = p.label;
+    var ddayBadge = document.createElement('span'); ddayBadge.className='dday-badge'; ddayBadge.hidden=true;
+    head.appendChild(dot); head.appendChild(h3); head.appendChild(ddayBadge);
+    panel.appendChild(head);
 
-    var controls = document.createElement('div'); controls.className='phase-controls';
+    var sub = document.createElement('p'); sub.className='phase-sub'; sub.textContent = p.sub;
+    panel.appendChild(sub);
+
+    var budgetInputs = document.createElement('div'); budgetInputs.className='budget-inputs';
     var numWrap = document.createElement('div'); numWrap.className='num-wrap';
     var numInput = document.createElement('input'); numInput.type='number'; numInput.min=p.bMin; numInput.step=p.bStep; numInput.value=state.budgets[p.key];
     var numUnit = document.createElement('span'); numUnit.textContent='억원';
     numWrap.appendChild(numInput); numWrap.appendChild(numUnit);
-    var budgetInputs = document.createElement('div'); budgetInputs.className='budget-inputs';
-    var rangeInput = document.createElement('input'); rangeInput.type='range'; rangeInput.min=p.bMin; rangeInput.max=p.bMax; rangeInput.step=p.bStep; rangeInput.value=state.budgets[p.key];
+    var rangeInput = document.createElement('input'); rangeInput.type='range'; rangeInput.min=p.bMin; rangeInput.max=p.bMax; rangeInput.step=p.bStep; rangeInput.value=Math.min(state.budgets[p.key],p.bMax);
     budgetInputs.appendChild(numWrap); budgetInputs.appendChild(rangeInput);
-    controls.appendChild(budgetInputs);
+    panel.appendChild(budgetInputs);
 
     var dateWrap = document.createElement('div'); dateWrap.className='date-wrap';
-    var dateLabel = document.createElement('label'); dateLabel.textContent = p.key==='always' ? '캠페인 시작일' : p.label+' 예정일';
-    var dateId = 'date-'+p.key;
-    dateLabel.setAttribute('for', dateId);
-    var dateInput = document.createElement('input'); dateInput.type='date'; dateInput.id = dateId; dateInput.value = state.dates[p.key];
+    var dateLabel = document.createElement('label'); dateLabel.textContent = p.key==='always' ? '캠페인 시작일' : '예정일';
+    var dateId = 'date-'+p.key; dateLabel.setAttribute('for', dateId);
+    var dateInput = document.createElement('input'); dateInput.type='date'; dateInput.id=dateId; dateInput.value=state.dates[p.key];
     dateWrap.appendChild(dateLabel); dateWrap.appendChild(dateInput);
-    controls.appendChild(dateWrap);
-    dateInput.addEventListener('change', function(){
-      state.dates[p.key] = dateInput.value;
-      saveState(); updateAll();
-    });
+    panel.appendChild(dateWrap);
+    dateInput.addEventListener('change', function(){ state.dates[p.key]=dateInput.value; saveState(); updateAll(); });
 
     var presets = document.createElement('div'); presets.className='chips';
-    var presetVals = p.key==='always' ? [0.3,0.5,1,2] : p.key==='cbt1' ? [0.5,1.5,3,5] : p.key==='cbt2' ? [1,4,10,20] : [5,18,30,50];
-    presetVals.forEach(function(v){
-      var b = document.createElement('button'); b.type='button'; b.className='chip-btn'; b.textContent=v+'억원';
+    p.presets.forEach(function(v){
+      var b = document.createElement('button'); b.type='button'; b.className='chip-btn'; b.textContent=v+'억';
       b.addEventListener('click', function(){ setBudget(p.key, v); });
       presets.appendChild(b);
     });
-    controls.appendChild(presets);
+    panel.appendChild(presets);
 
-    var actions = document.createElement('div'); actions.className='actions';
+    var actions = document.createElement('div'); actions.className='panel-actions';
     var resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='btn btn-ghost'; resetBtn.textContent='선택 초기화';
-    resetBtn.addEventListener('click', function(){
-      ITEMS_BY_PHASE[p.key].forEach(function(it){ state.selected.delete(it.id); });
-      saveState(); updateAll();
-    });
+    resetBtn.addEventListener('click', function(){ resetPhase(p.key); saveState(); updateAll(); });
     var recBtn = document.createElement('button'); recBtn.type='button'; recBtn.className='btn btn-primary'; recBtn.textContent='자동 추천';
     recBtn.addEventListener('click', function(){ autoRecommendPhase(p.key); saveState(); updateAll(); });
     actions.appendChild(resetBtn); actions.appendChild(recBtn);
-    controls.appendChild(actions);
-    section.appendChild(controls);
+    panel.appendChild(actions);
 
-    var statusRow = document.createElement('div'); statusRow.className='phase-status';
-    var statCount = document.createElement('div'); statCount.className='stat'; statCount.innerHTML='<span class="k">선택된 항목</span><span class="v tabular" data-role="count">0개</span>';
-    var statCost = document.createElement('div'); statCost.className='stat'; statCost.innerHTML='<span class="k">예상 비용 (최소~최대)</span><span class="v tabular" data-role="cost">0원</span>';
-    var progTrack = document.createElement('div'); progTrack.className='progress-track'; var progFill=document.createElement('div'); progFill.className='progress-fill'; progTrack.appendChild(progFill);
-    var statRemain = document.createElement('div'); statRemain.className='stat'; statRemain.innerHTML='<span class="k">잔여 예산</span><span class="v tabular" data-role="remain">0원</span>';
+    var status = document.createElement('div'); status.className='panel-status';
+    function statRow(label){
+      var row = document.createElement('div'); row.className='row';
+      var span = document.createElement('span'); span.textContent = label;
+      var b = document.createElement('b'); b.className='tabular';
+      row.appendChild(span); row.appendChild(b);
+      return {row:row, val:b};
+    }
+    var rCount = statRow('선택된 항목'); var rCost = statRow('예상 비용'); var rRemain = statRow('잔여 예산'); var rDev = statRow('개발사 부담(참고)');
+    var progTrack = document.createElement('div'); progTrack.className='panel-progress'; var progFill=document.createElement('div'); progFill.className='panel-progress-fill'; progTrack.appendChild(progFill);
     var healthChip = document.createElement('span'); healthChip.className='health-chip';
-    var statDev = document.createElement('div'); statDev.className='stat'; statDev.innerHTML='<span class="k">개발사 부담 (참고, 예산 미반영)</span><span class="v tabular" data-role="dev">0원</span>';
-    statusRow.appendChild(statCount); statusRow.appendChild(statCost); statusRow.appendChild(progTrack); statusRow.appendChild(statRemain); statusRow.appendChild(healthChip); statusRow.appendChild(statDev);
-    section.appendChild(statusRow);
+    status.appendChild(rCount.row); status.appendChild(rCost.row); status.appendChild(progTrack); status.appendChild(rRemain.row); status.appendChild(rDev.row); status.appendChild(healthChip);
+    panel.appendChild(status);
 
-    var ownerFilter = document.createElement('div'); ownerFilter.className='owner-filter';
-    var ownerFilterState = {value:'all'};
-    var ownerOpts = [{v:'all',l:'전체'},{v:'pub',l:'퍼블리셔'},{v:'dev',l:'개발사'},{v:'co',l:'공동 부담'}];
-    var ownerBtns = {};
-    ownerOpts.forEach(function(o){
-      var b = document.createElement('button'); b.type='button';
-      b.setAttribute('aria-pressed', o.v==='all'?'true':'false');
-      b.textContent = o.l;
-      b.addEventListener('click', function(){
-        ownerFilterState.value = o.v;
-        Object.keys(ownerBtns).forEach(function(k){ ownerBtns[k].setAttribute('aria-pressed', k===o.v?'true':'false'); });
-        renderPhaseCards(p.key);
-      });
-      ownerBtns[o.v] = b;
-      ownerFilter.appendChild(b);
-    });
-    section.appendChild(ownerFilter);
-
-    var grid = document.createElement('div'); grid.className='grid';
-    ITEMS_BY_PHASE[p.key].forEach(function(it){ grid.appendChild(buildCard(it)); });
-    section.appendChild(grid);
-
-    container.appendChild(section);
-
-    phaseRefs[p.key] = {numInput:numInput, rangeInput:rangeInput, dateInput:dateInput, ddayBadge:ddayBadge, grid:grid, ownerFilterState:ownerFilterState,
-      statCount:statCount.querySelector('[data-role=count]'), statCost:statCost.querySelector('[data-role=cost]'),
-      statRemain:statRemain.querySelector('[data-role=remain]'), statDev:statDev.querySelector('[data-role=dev]'), progFill:progFill, healthChip:healthChip};
-
+    phaseGrid.appendChild(panel);
+    phaseRefs[p.key] = {
+      numInput:numInput, rangeInput:rangeInput, dateInput:dateInput, ddayBadge:ddayBadge,
+      countVal:rCount.val, costVal:rCost.val, remainVal:rRemain.val, devVal:rDev.val, progFill:progFill, healthChip:healthChip
+    };
     numInput.addEventListener('input', function(){ var v=parseFloat(numInput.value); if(!isNaN(v)) setBudget(p.key, v); });
     rangeInput.addEventListener('input', function(){ setBudget(p.key, parseFloat(rangeInput.value)); });
   }
@@ -686,34 +629,22 @@
     v = Math.max(p.bMin, v);
     state.budgets[phaseKey] = v;
     phaseRefs[phaseKey].numInput.value = v;
-    if(v <= p.bMax){ phaseRefs[phaseKey].rangeInput.value = v; }
-    else{ phaseRefs[phaseKey].rangeInput.value = p.bMax; }
+    phaseRefs[phaseKey].rangeInput.value = Math.min(v, p.bMax);
     saveState(); updateAll();
   }
 
-  function renderPhaseCards(phaseKey){
-    var refs = phaseRefs[phaseKey];
-    var filter = refs.ownerFilterState.value;
-    refs.grid.innerHTML = '';
-    ITEMS_BY_PHASE[phaseKey].forEach(function(it){
-      if(filter!=='all' && it.owner!==filter) return;
-      refs.grid.appendChild(buildCard(it));
-    });
-  }
-
-  function updatePhaseStatus(phaseKey){
+  function updatePhasePanel(phaseKey){
     var refs = phaseRefs[phaseKey];
     var dday = dDayLabel(parseDate(state.dates[phaseKey]));
-    if(dday){ refs.ddayBadge.textContent = dday; refs.ddayBadge.hidden = false; }
-    else{ refs.ddayBadge.hidden = true; }
+    if(dday){ refs.ddayBadge.textContent = dday; refs.ddayBadge.hidden=false; } else { refs.ddayBadge.hidden=true; }
     var totals = computePhaseTotals(phaseKey);
     var budgetManwon = state.budgets[phaseKey]*10000;
-    refs.statCount.textContent = totals.count+'개';
-    refs.statCost.textContent = fmtRange(totals.sumMin, totals.sumMax);
-    refs.statDev.textContent = totals.devCount+'개 · '+fmtManwon(totals.devMid);
+    refs.countVal.textContent = totals.count+'개';
+    refs.costVal.textContent = fmtRange(totals.sumMin, totals.sumMax);
+    refs.devVal.textContent = totals.devCount+'개 · '+fmtManwon(totals.devMid);
     var remain = budgetManwon - totals.sumMid;
-    refs.statRemain.textContent = (remain<0?'-':'')+fmtManwon(Math.abs(remain));
-    refs.statRemain.style.color = remain<0 ? 'var(--crit)' : 'var(--text)';
+    refs.remainVal.textContent = (remain<0?'-':'')+fmtManwon(Math.abs(remain));
+    refs.remainVal.style.color = remain<0 ? 'var(--crit)' : 'var(--text)';
     var h = healthFor(totals.sumMid, budgetManwon);
     refs.progFill.style.width = Math.min(100,h.pct)+'%';
     refs.progFill.style.background = h.key==='crit'?'var(--crit)':h.key==='warn'?'var(--warn)':'var(--good)';
@@ -745,7 +676,7 @@
     stackEl.innerHTML=''; legendEl.innerHTML='';
     if(totalMid<=0){
       var note = document.createElement('div'); note.style.cssText='font-size:12px;color:var(--muted);';
-      note.textContent = '선택된 항목이 없습니다. 각 구간에서 "자동 추천"을 눌러보세요.';
+      note.textContent = '선택된 항목이 없습니다. 각 구간 패널에서 "자동 추천"을 눌러보세요.';
       legendEl.appendChild(note);
       return;
     }
@@ -765,23 +696,311 @@
     });
   }
 
-  // ---------- Calendar ----------
+  // ================= Filter bar =================
+  var filterState = { phase:'all', owner:'all' };
+  function buildFilterBar(){
+    var bar = document.getElementById('filterBar');
+    bar.innerHTML = '';
+
+    var phaseGroup = document.createElement('div'); phaseGroup.className='filter-group';
+    var pLabel = document.createElement('span'); pLabel.className='flabel'; pLabel.textContent='구간';
+    phaseGroup.appendChild(pLabel);
+    var phaseBtns = {};
+    function makePhaseChip(key, label, color){
+      var b = document.createElement('button'); b.type='button'; b.className='filter-chip';
+      b.setAttribute('aria-pressed', key==='all'?'true':'false');
+      if(color){ var d=document.createElement('span'); d.className='dot'; d.style.background=color; b.appendChild(d); }
+      b.appendChild(document.createTextNode(label));
+      b.addEventListener('click', function(){
+        filterState.phase = key;
+        Object.keys(phaseBtns).forEach(function(k){ phaseBtns[k].setAttribute('aria-pressed', k===key?'true':'false'); });
+        renderItemGrid();
+      });
+      phaseBtns[key]=b; phaseGroup.appendChild(b);
+      return b;
+    }
+    makePhaseChip('all','전체');
+    PHASES.forEach(function(p){ makePhaseChip(p.key, p.label, p.color); });
+    bar.appendChild(phaseGroup);
+
+    var ownerGroup = document.createElement('div'); ownerGroup.className='filter-group';
+    var oLabel = document.createElement('span'); oLabel.className='flabel'; oLabel.textContent='부담 주체';
+    ownerGroup.appendChild(oLabel);
+    var ownerBtns = {};
+    [['all','전체'],['pub','퍼블리셔'],['dev','개발사'],['co','공동 부담']].forEach(function(pair){
+      var b = document.createElement('button'); b.type='button'; b.className='filter-chip';
+      b.setAttribute('aria-pressed', pair[0]==='all'?'true':'false');
+      b.textContent = pair[1];
+      b.addEventListener('click', function(){
+        filterState.owner = pair[0];
+        Object.keys(ownerBtns).forEach(function(k){ ownerBtns[k].setAttribute('aria-pressed', k===pair[0]?'true':'false'); });
+        renderItemGrid();
+      });
+      ownerBtns[pair[0]]=b; ownerGroup.appendChild(b);
+    });
+    bar.appendChild(ownerGroup);
+
+    var count = document.createElement('span'); count.className='item-count'; count.id='itemCount';
+    bar.appendChild(count);
+  }
+
+  // ================= Item cards =================
+  function buildPhaseToggleBlock(it, phaseKey){
+    var p = PHASE_MAP[phaseKey];
+    var block = document.createElement('div'); block.className='phase-toggle-block';
+    var label = document.createElement('label'); label.className='phase-toggle-btn';
+    var cb = document.createElement('input'); cb.type='checkbox'; cb.checked = state.selected.has(ck(it.id, phaseKey));
+    cb.style.accentColor = p.color;
+    var dot = document.createElement('span'); dot.className='dot'; dot.style.background=p.color;
+    label.appendChild(cb); label.appendChild(dot); label.appendChild(document.createTextNode(p.label));
+    block.appendChild(label);
+
+    var detail = document.createElement('div'); detail.className='phase-instance-detail'; detail.hidden = !cb.checked;
+    var costNow = getCost(it, phaseKey);
+
+    var costEdit = document.createElement('div'); costEdit.className='cost-edit';
+    var minInput = document.createElement('input'); minInput.type='number'; minInput.className='cost-input'; minInput.step='10'; minInput.min='0'; minInput.value=costNow.min;
+    var sep = document.createElement('span'); sep.className='cost-sep'; sep.textContent='~';
+    var maxInput = document.createElement('input'); maxInput.type='number'; maxInput.className='cost-input'; maxInput.step='10'; maxInput.min='0'; maxInput.value=costNow.max;
+    var unit = document.createElement('span'); unit.className='cost-unit'; unit.textContent='만원';
+    var resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='reset-cost'; resetBtn.title='기본 추정치로 초기화'; resetBtn.textContent='↺'; resetBtn.hidden=!costNow.custom;
+    function commitCost(){
+      var mn = parseFloat(minInput.value), mx = parseFloat(maxInput.value);
+      if(isNaN(mn)) mn = it.min; if(isNaN(mx)) mx = it.max;
+      if(mx < mn) mx = mn;
+      var key = ck(it.id, phaseKey);
+      if(mn===it.min && mx===it.max){ delete state.itemCost[key]; }
+      else{ state.itemCost[key] = {min:mn, max:mx}; }
+      saveState(); updateAll();
+    }
+    minInput.addEventListener('change', commitCost);
+    maxInput.addEventListener('change', commitCost);
+    resetBtn.addEventListener('click', function(){ delete state.itemCost[ck(it.id,phaseKey)]; saveState(); updateAll(); });
+    costEdit.appendChild(minInput); costEdit.appendChild(sep); costEdit.appendChild(maxInput); costEdit.appendChild(unit); costEdit.appendChild(resetBtn);
+    detail.appendChild(costEdit);
+
+    var eff = effectiveDate(it, phaseKey);
+    var prep = prepStartDate(it, phaseKey);
+    var schedRow = document.createElement('div'); schedRow.className='sched-row';
+    if(eff && prep){
+      var today = new Date(); today.setHours(0,0,0,0);
+      var prepChip = document.createElement('span'); prepChip.className='sched-chip prep'+(prep<today?' late':'');
+      prepChip.textContent = (prep<today?'⚠ 준비 ':'준비 ')+fmtDate(prep)+' ('+dDayLabel(prep)+')';
+      var execChip = document.createElement('span'); execChip.className='sched-chip exec';
+      execChip.textContent = '실행 '+fmtDate(eff)+' ('+dDayLabel(eff)+')';
+      schedRow.appendChild(prepChip); schedRow.appendChild(execChip);
+    } else {
+      var empty = document.createElement('span'); empty.className='sched-empty';
+      empty.textContent = it.ownDate ? '위 행사일을 입력하면 준비 일정이 계산됩니다.' : '이 구간의 예정일을 입력하면 준비 일정이 계산됩니다.';
+      schedRow.appendChild(empty);
+    }
+    detail.appendChild(schedRow);
+    block.appendChild(detail);
+
+    cb.addEventListener('change', function(){
+      var key = ck(it.id, phaseKey);
+      if(cb.checked) state.selected.add(key); else state.selected.delete(key);
+      detail.hidden = !cb.checked;
+      updateCardSelectionState(it);
+      saveState(); updatePanelsAndSummaries();
+    });
+
+    return block;
+  }
+
+  function updateCardSelectionState(it){
+    var card = document.querySelector('.card[data-id="'+cssEscape(it.id)+'"]');
+    if(!card) return;
+    var anySel = it.phases.some(function(ph){ return state.selected.has(ck(it.id,ph)); });
+    card.classList.toggle('has-selection', anySel);
+  }
+  function cssEscape(s){ return String(s).replace(/[^a-zA-Z0-9_-]/g, function(c){ return '\\'+c; }); }
+
+  function buildCard(it){
+    var card = document.createElement('article'); card.className='card'; card.dataset.id = it.id;
+    var anySel = it.phases.some(function(ph){ return state.selected.has(ck(it.id,ph)); });
+    if(anySel) card.classList.add('has-selection');
+
+    var top = document.createElement('div'); top.className='card-top';
+    var tier = document.createElement('span'); tier.className='tier-chip'; tier.title=TIER_LABEL[it.tier];
+    var tdot = document.createElement('span'); tdot.className='dot'; tdot.style.background=TIER_COLOR[it.tier];
+    tier.appendChild(tdot); tier.appendChild(document.createTextNode(it.tier));
+    top.appendChild(tier);
+    var ownerChip = document.createElement('span'); ownerChip.className='owner-chip owner-'+it.owner; ownerChip.textContent = OWNER_LABEL[it.owner];
+    top.appendChild(ownerChip);
+    var typeChip = document.createElement('span'); typeChip.className='type-chip'; typeChip.textContent = it.type;
+    top.appendChild(typeChip);
+    if(it.scope){ var sc=document.createElement('span'); sc.className='scope-chip'; sc.textContent=it.scope; top.appendChild(sc); }
+    if(it.custom){ var cb3=document.createElement('span'); cb3.className='custom-badge'; cb3.textContent='커스텀 항목'; top.appendChild(cb3); }
+    card.appendChild(top);
+
+    var h3 = document.createElement('h3'); h3.textContent = it.title; card.appendChild(h3);
+    var desc = document.createElement('p'); desc.className='desc'; desc.textContent = it.desc; card.appendChild(desc);
+
+    var meta = document.createElement('dl'); meta.className='meta';
+    var dt1=document.createElement('dt'); dt1.textContent='채널'; var dd1=document.createElement('dd'); dd1.textContent=it.ch;
+    var dt2=document.createElement('dt'); dt2.textContent='목표 KPI'; var dd2=document.createElement('dd'); dd2.textContent=it.kpi;
+    var dt3=document.createElement('dt'); dt3.textContent='준비 기간'; var dd3=document.createElement('dd'); dd3.textContent='실행 '+it.lead+'주 전부터';
+    meta.appendChild(dt1); meta.appendChild(dd1); meta.appendChild(dt2); meta.appendChild(dd2); meta.appendChild(dt3); meta.appendChild(dd3);
+    card.appendChild(meta);
+
+    if(it.ownDate){
+      var evRow = document.createElement('div'); evRow.className='event-date-row';
+      var evLabel = document.createElement('label'); evLabel.textContent='행사일'; var evId='ev-'+it.id; evLabel.setAttribute('for',evId);
+      var evInput = document.createElement('input'); evInput.type='date'; evInput.id=evId; evInput.value = state.itemDates[it.id]||'';
+      evInput.addEventListener('change', function(){ state.itemDates[it.id]=evInput.value; saveState(); updateAll(); });
+      evRow.appendChild(evLabel); evRow.appendChild(evInput);
+      card.appendChild(evRow);
+      if(it.eventNote){ var note=document.createElement('p'); note.className='event-note'; note.textContent=it.eventNote; card.appendChild(note); }
+    }
+
+    var toggles = document.createElement('div'); toggles.className='phase-toggles';
+    it.phases.forEach(function(ph){ toggles.appendChild(buildPhaseToggleBlock(it, ph)); });
+    card.appendChild(toggles);
+
+    if(it.custom){
+      var foot = document.createElement('div'); foot.className='card-foot';
+      var delBtn = document.createElement('button'); delBtn.type='button'; delBtn.className='btn btn-ghost custom-delete'; delBtn.textContent='항목 삭제';
+      delBtn.addEventListener('click', function(){
+        if(!confirm('"'+it.title+'" 항목을 삭제할까요?')) return;
+        state.customItems = state.customItems.filter(function(x){ return x.id!==it.id; });
+        it.phases.forEach(function(ph){ state.selected.delete(ck(it.id,ph)); delete state.itemCost[ck(it.id,ph)]; });
+        delete state.itemDates[it.id];
+        saveState(); updateAll();
+      });
+      foot.appendChild(delBtn);
+      card.appendChild(foot);
+    }
+    return card;
+  }
+
+  function renderItemGrid(){
+    var grid = document.getElementById('itemGrid');
+    grid.innerHTML = '';
+    var items = allItems().filter(function(it){
+      if(filterState.phase!=='all' && it.phases.indexOf(filterState.phase)===-1) return false;
+      if(filterState.owner!=='all' && it.owner!==filterState.owner) return false;
+      return true;
+    });
+    items.forEach(function(it){ grid.appendChild(buildCard(it)); });
+    var countEl = document.getElementById('itemCount');
+    if(countEl) countEl.textContent = items.length+'개 항목 표시 중 (전체 '+allItems().length+'개)';
+  }
+
+  // ================= Add custom item =================
+  function buildAddItemForm(){
+    var form = document.getElementById('addItemForm');
+    form.innerHTML = '';
+
+    function field(labelText, inputEl){
+      var row = document.createElement('div'); row.className='form-row';
+      var lbl = document.createElement('label'); lbl.textContent = labelText;
+      row.appendChild(lbl); row.appendChild(inputEl);
+      return row;
+    }
+
+    var titleInput = document.createElement('input'); titleInput.type='text'; titleInput.placeholder='예: 지역 커뮤니티 오프라인 밋업';
+    var descInput = document.createElement('input'); descInput.type='text'; descInput.placeholder='한 줄 설명 (선택)';
+    var chInput = document.createElement('input'); chInput.type='text'; chInput.placeholder='예: 커뮤니티 (선택)';
+    var kpiInput = document.createElement('input'); kpiInput.type='text'; kpiInput.placeholder='예: 참여자 수 (선택)';
+    var typeSelect = document.createElement('select');
+    ITEM_TYPES.forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=t; typeSelect.appendChild(o); });
+    var tierSelect = document.createElement('select');
+    ['S','M','L','XL'].forEach(function(t){ var o=document.createElement('option'); o.value=t; o.textContent=TIER_LABEL[t]; tierSelect.appendChild(o); });
+    tierSelect.value='M';
+    var ownerSelect = document.createElement('select');
+    [['pub','퍼블리셔'],['dev','개발사'],['co','공동 부담']].forEach(function(pair){ var o=document.createElement('option'); o.value=pair[0]; o.textContent=pair[1]; ownerSelect.appendChild(o); });
+    var minInput = document.createElement('input'); minInput.type='number'; minInput.min='0'; minInput.step='10'; minInput.value='500';
+    var maxInput = document.createElement('input'); maxInput.type='number'; maxInput.min='0'; maxInput.step='10'; maxInput.value='1000';
+    var leadInput = document.createElement('input'); leadInput.type='number'; leadInput.min='0'; leadInput.step='1'; leadInput.value='8';
+
+    var formGrid = document.createElement('div'); formGrid.className='form-grid';
+    formGrid.appendChild(field('항목명 *', titleInput));
+    formGrid.appendChild(field('설명', descInput));
+    formGrid.appendChild(field('채널', chInput));
+    formGrid.appendChild(field('목표 KPI', kpiInput));
+    formGrid.appendChild(field('유형', typeSelect));
+    formGrid.appendChild(field('예산 규모', tierSelect));
+    formGrid.appendChild(field('비용 부담 주체', ownerSelect));
+    formGrid.appendChild(field('최소 비용(만원)', minInput));
+    formGrid.appendChild(field('최대 비용(만원)', maxInput));
+    formGrid.appendChild(field('준비 기간(주)', leadInput));
+    form.appendChild(formGrid);
+
+    var phaseRow = document.createElement('div'); phaseRow.className='phase-check-row';
+    var phaseChecks = {};
+    PHASES.forEach(function(p){
+      var lbl = document.createElement('label');
+      var cb = document.createElement('input'); cb.type='checkbox';
+      lbl.appendChild(cb); lbl.appendChild(document.createTextNode(' '+p.label));
+      phaseRow.appendChild(lbl);
+      phaseChecks[p.key] = cb;
+    });
+    form.appendChild(field('이 항목이 나타날 수 있는 구간 *', phaseRow));
+
+    var errorEl = document.createElement('p'); errorEl.className='ai-error'; errorEl.hidden=true;
+    form.appendChild(errorEl);
+
+    var formActions = document.createElement('div'); formActions.className='form-actions';
+    var cancelBtn = document.createElement('button'); cancelBtn.type='button'; cancelBtn.className='btn btn-ghost'; cancelBtn.textContent='취소';
+    var saveBtn = document.createElement('button'); saveBtn.type='button'; saveBtn.className='btn btn-primary'; saveBtn.textContent='항목 추가';
+    formActions.appendChild(cancelBtn); formActions.appendChild(saveBtn);
+    form.appendChild(formActions);
+
+    var toggle = document.getElementById('addItemToggle');
+    function resetForm(){
+      titleInput.value=''; descInput.value=''; chInput.value=''; kpiInput.value='';
+      typeSelect.value=ITEM_TYPES[0]; tierSelect.value='M'; ownerSelect.value='pub';
+      minInput.value='500'; maxInput.value='1000'; leadInput.value='8';
+      PHASES.forEach(function(p){ phaseChecks[p.key].checked=false; });
+      errorEl.hidden=true;
+    }
+    toggle.addEventListener('click', function(){
+      form.hidden = !form.hidden;
+      toggle.textContent = form.hidden ? '+ 새 항목 추가' : '− 항목 추가 닫기';
+      if(!form.hidden) titleInput.focus();
+    });
+    cancelBtn.addEventListener('click', function(){ resetForm(); form.hidden=true; toggle.textContent='+ 새 항목 추가'; });
+    saveBtn.addEventListener('click', function(){
+      var title = titleInput.value.trim();
+      var chosenPhases = PHASES.filter(function(p){ return phaseChecks[p.key].checked; }).map(function(p){ return p.key; });
+      if(!title){ errorEl.textContent='항목명을 입력하세요.'; errorEl.hidden=false; return; }
+      if(!chosenPhases.length){ errorEl.textContent='이 항목이 나타날 구간을 하나 이상 선택하세요.'; errorEl.hidden=false; return; }
+      var mn = parseFloat(minInput.value), mx = parseFloat(maxInput.value);
+      if(isNaN(mn) || mn<0) mn=0; if(isNaN(mx) || mx<mn) mx=mn;
+      var lead = parseFloat(leadInput.value); if(isNaN(lead) || lead<0) lead=0;
+      var id = newCustomId();
+      var item = {
+        id:id, custom:true, phases:chosenPhases,
+        tier:tierSelect.value, owner:ownerSelect.value, type:typeSelect.value,
+        min:mn, max:mx, mid:(mn+mx)/2, lead:lead,
+        title:title, desc:descInput.value.trim(), ch:chInput.value.trim(), kpi:kpiInput.value.trim(),
+        ownDate:false
+      };
+      state.customItems.push(item);
+      chosenPhases.forEach(function(ph){ state.selected.add(ck(id,ph)); });
+      resetForm(); form.hidden=true; toggle.textContent='+ 새 항목 추가';
+      saveState(); updateAll();
+    });
+  }
+
+  // ================= Calendar =================
   function updateCalendar(){
     var body = document.getElementById('calendarBody');
     body.innerHTML = '';
     var rows = [];
-    PHASES.forEach(function(p){
-      ITEMS_BY_PHASE[p.key].forEach(function(it){
-        if(!state.selected.has(it.id)) return;
-        var eff = effectiveDate(it);
-        var prep = prepStartDate(it);
+    allItems().forEach(function(it){
+      it.phases.forEach(function(ph){
+        if(!state.selected.has(ck(it.id,ph))) return;
+        var eff = effectiveDate(it, ph);
+        var prep = prepStartDate(it, ph);
         if(!eff || !prep) return;
-        rows.push({item:it, phase:p, eff:eff, prep:prep});
+        rows.push({item:it, phase:PHASE_MAP[ph], eff:eff, prep:prep});
       });
     });
     if(rows.length===0){
       var empty = document.createElement('div'); empty.className='cal-empty';
-      empty.textContent = '표시할 항목이 없습니다. 항목을 선택하고 구간별 예정일 또는 행사 카드의 행사일을 입력하세요.';
+      empty.textContent = '표시할 항목이 없습니다. 항목의 구간 토글을 켜고, 해당 구간의 예정일(또는 행사 카드의 행사일)을 입력하세요.';
       body.appendChild(empty);
       return;
     }
@@ -791,22 +1010,19 @@
     var minD = rows.reduce(function(m,r){ return r.prep<m?r.prep:m; }, rows[0].prep);
     var maxD = rows.reduce(function(m,r){ return r.eff>m?r.eff:m; }, rows[0].eff);
     if(today<minD) minD = today;
-    minD = addDays(minD, -5);
-    maxD = addDays(maxD, 10);
+    minD = addDays(minD, -5); maxD = addDays(maxD, 10);
     var total = maxD-minD;
     function frac(d){ return Math.max(0,Math.min(1,(d-minD)/total)); }
 
     var inner = document.createElement('div'); inner.className='cal-inner';
-
     var monthsHead = document.createElement('div'); monthsHead.className='cal-months';
-    var corner = document.createElement('div'); corner.className='cal-corner'; corner.textContent='항목';
+    var corner = document.createElement('div'); corner.className='cal-corner'; corner.textContent='항목 (구간)';
     monthsHead.appendChild(corner);
     var monthTrack = document.createElement('div'); monthTrack.className='cal-monthtrack';
     var cursor = new Date(minD.getFullYear(), minD.getMonth(), 1);
     if(cursor<minD){ cursor.setMonth(cursor.getMonth()+1); }
     while(cursor<=maxD){
-      var lbl = document.createElement('span');
-      lbl.style.left = (frac(cursor)*100)+'%';
+      var lbl = document.createElement('span'); lbl.style.left=(frac(cursor)*100)+'%';
       lbl.textContent = (cursor.getFullYear()%100)+'.'+('0'+(cursor.getMonth()+1)).slice(-2);
       monthTrack.appendChild(lbl);
       cursor = new Date(cursor.getFullYear(), cursor.getMonth()+1, 1);
@@ -817,89 +1033,76 @@
     var body2 = document.createElement('div'); body2.className='cal-body';
     var names = document.createElement('div'); names.className='cal-names';
     var tracks = document.createElement('div'); tracks.className='cal-tracks';
-
     var gridlines = document.createElement('div'); gridlines.className='cal-gridlines';
     var cursor2 = new Date(minD.getFullYear(), minD.getMonth(), 1);
     if(cursor2<minD){ cursor2.setMonth(cursor2.getMonth()+1); }
     while(cursor2<=maxD){
-      var gl = document.createElement('i'); gl.style.left=(frac(cursor2)*100)+'%';
-      gridlines.appendChild(gl);
+      var gl=document.createElement('i'); gl.style.left=(frac(cursor2)*100)+'%'; gridlines.appendChild(gl);
       cursor2 = new Date(cursor2.getFullYear(), cursor2.getMonth()+1, 1);
     }
     tracks.appendChild(gridlines);
-
     var todayLine = document.createElement('div'); todayLine.className='cal-todayline';
-    var tl = document.createElement('div'); tl.className='line'; tl.style.left=(frac(today)*100)+'%';
-    var tt = document.createElement('div'); tt.className='tag'; tt.style.left=(frac(today)*100)+'%'; tt.textContent='오늘';
+    var tl=document.createElement('div'); tl.className='line'; tl.style.left=(frac(today)*100)+'%';
+    var tt=document.createElement('div'); tt.className='tag'; tt.style.left=(frac(today)*100)+'%'; tt.textContent='오늘';
     todayLine.appendChild(tl); todayLine.appendChild(tt);
     tracks.appendChild(todayLine);
 
     rows.forEach(function(r){
       var nameEl = document.createElement('div'); nameEl.className='cal-name';
       var d = document.createElement('span'); d.className='dot'; d.style.background=r.phase.color;
-      var t = document.createElement('span'); t.className='t'; t.textContent = r.item.title;
+      var t = document.createElement('span'); t.className='t'; t.textContent = r.item.title+' ('+r.phase.label+')';
       nameEl.appendChild(d); nameEl.appendChild(t);
       names.appendChild(nameEl);
 
       var row = document.createElement('div'); row.className='cal-row';
       var bar = document.createElement('div'); bar.className='cal-bar';
-      bar.style.left = (frac(r.prep)*100)+'%';
-      bar.style.width = Math.max((frac(r.eff)-frac(r.prep))*100, 0.6)+'%';
-      bar.style.background = r.phase.color;
-      bar.title = r.item.title+': 준비 '+fmtDate(r.prep)+' → 실행 '+fmtDate(r.eff);
+      bar.style.left=(frac(r.prep)*100)+'%'; bar.style.width=Math.max((frac(r.eff)-frac(r.prep))*100,0.6)+'%'; bar.style.background=r.phase.color;
+      bar.title = r.item.title+' ('+r.phase.label+'): 준비 '+fmtDate(r.prep)+' → 실행 '+fmtDate(r.eff);
       row.appendChild(bar);
       var mark = document.createElement('div'); mark.className='cal-bar-exec';
-      mark.style.left = (frac(r.eff)*100)+'%';
-      mark.style.background = r.phase.color;
-      mark.title = r.item.title+' 실행일: '+fmtDate(r.eff);
+      mark.style.left=(frac(r.eff)*100)+'%'; mark.style.background=r.phase.color;
+      mark.title = r.item.title+' ('+r.phase.label+') 실행일: '+fmtDate(r.eff);
       row.appendChild(mark);
       tracks.appendChild(row);
     });
 
     body2.appendChild(names); body2.appendChild(tracks);
     inner.appendChild(body2);
-
-    var scroll = document.createElement('div'); scroll.className='cal-scroll';
-    scroll.appendChild(inner);
+    var scroll = document.createElement('div'); scroll.className='cal-scroll'; scroll.appendChild(inner);
     body.appendChild(scroll);
   }
 
-  // ---------- Export ----------
+  // ================= Export =================
   function csvEscape(v){
     var s = (v===null||v===undefined) ? '' : String(v);
     if(/[",\n]/.test(s)){ s = '"'+s.replace(/"/g,'""')+'"'; }
     return s;
   }
-
   function downloadClassic(blob, filename){
     var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = filename;
+    var a = document.createElement('a'); a.href=url; a.download=filename;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   }
-
   async function exportCSV(){
     var rows = [];
     rows.push(['구간','항목','부담 주체','유형','티어','최소비용(만원)','최대비용(만원)','채널','목표 KPI','준비 기간(주)','준비 시작일','실행일','적용 범위']);
     var grandMin=0, grandMax=0, rowCount=0;
-    PHASES.forEach(function(p){
-      ITEMS_BY_PHASE[p.key].forEach(function(it){
-        if(!state.selected.has(it.id)) return;
-        var c = getCost(it);
-        var eff = effectiveDate(it);
-        var prep = prepStartDate(it);
+    allItems().forEach(function(it){
+      it.phases.forEach(function(ph){
+        if(!state.selected.has(ck(it.id,ph))) return;
+        var c = getCost(it, ph);
+        var eff = effectiveDate(it, ph); var prep = prepStartDate(it, ph);
         rows.push([
-          p.label, it.title, OWNER_LABEL[it.owner], it.type, it.tier,
+          PHASE_MAP[ph].label, it.title, OWNER_LABEL[it.owner], it.type, it.tier,
           c.min, c.max, it.ch, it.kpi, it.lead,
-          prep?fmtDate(prep):'', eff?fmtDate(eff):'',
-          it.scope||''
+          prep?fmtDate(prep):'', eff?fmtDate(eff):'', it.scope||''
         ]);
         rowCount++;
         if(it.owner!=='dev'){ grandMin+=c.min; grandMax+=c.max; }
       });
     });
-    if(rowCount===0){ alert('선택된 항목이 없습니다. 먼저 항목을 선택하거나 각 구간에서 "자동 추천"을 실행하세요.'); return; }
+    if(rowCount===0){ alert('선택된 항목이 없습니다. 항목의 구간 토글을 켜거나 각 구간 패널에서 "자동 추천"을 실행하세요.'); return; }
     rows.push([]);
     rows.push(['합계(퍼블리셔+공동 부담 기준)','','','','', grandMin, grandMax,'','','','','','']);
     var csv = rows.map(function(r){ return r.map(csvEscape).join(','); }).join('\r\n');
@@ -907,67 +1110,103 @@
     var today = new Date();
     var stamp = today.getFullYear()+('0'+(today.getMonth()+1)).slice(-2)+('0'+today.getDate()).slice(-2);
     var filename = 'marketing-simulator-'+stamp+'.csv';
-
     var handled = false;
     try{
       if(window.claude && window.claude.use){
         var downloads = await window.claude.use('downloads');
-        if(downloads){
-          await downloads.save({filename: filename, data: blob});
-          handled = true;
-        }
+        if(downloads){ await downloads.save({filename:filename, data:blob}); handled=true; }
       }
     }catch(e){
-      if(e && e.code === 'declined'){ return; }
+      if(e && e.code==='declined'){ return; }
       handled = false;
     }
     if(!handled){ downloadClassic(blob, filename); }
   }
 
-  function updateAll(){
+  // ================= Orchestration =================
+  function updatePanelsAndSummaries(){
     var perPhaseTotals = {};
-    PHASES.forEach(function(p){
-      renderPhaseCards(p.key);
-      perPhaseTotals[p.key] = updatePhaseStatus(p.key);
-    });
+    PHASES.forEach(function(p){ perPhaseTotals[p.key] = updatePhasePanel(p.key); });
     updateOverview(perPhaseTotals);
     updateCalendar();
   }
+  function updateAll(){
+    renderItemGrid();
+    updatePanelsAndSummaries();
+  }
 
-  PHASES.forEach(buildPhaseSection);
+  function syncPhaseInputs(){
+    PHASES.forEach(function(p){
+      phaseRefs[p.key].numInput.value = state.budgets[p.key];
+      phaseRefs[p.key].rangeInput.value = Math.min(state.budgets[p.key], p.bMax);
+      phaseRefs[p.key].dateInput.value = state.dates[p.key];
+    });
+  }
+
+  // ---- Presets ----
+  function loadPresets(){
+    try{ var raw = localStorage.getItem(PRESET_KEY); var list = raw?JSON.parse(raw):[]; return Array.isArray(list)?list:[]; }catch(e){ return []; }
+  }
+  function savePresets(list){ try{ localStorage.setItem(PRESET_KEY, JSON.stringify(list)); }catch(e){} }
+  var presetSelect = document.getElementById('presetSelect');
+  function refreshPresetSelect(selectId){
+    var list = loadPresets();
+    presetSelect.innerHTML = '';
+    var placeholder = document.createElement('option'); placeholder.value='';
+    placeholder.textContent = list.length ? '불러올 프리셋 선택…' : '저장된 프리셋 없음';
+    presetSelect.appendChild(placeholder);
+    list.forEach(function(pr){ var o=document.createElement('option'); o.value=pr.id; o.textContent=pr.name+' ('+pr.savedAt+')'; presetSelect.appendChild(o); });
+    if(selectId) presetSelect.value = selectId;
+  }
+  document.getElementById('presetSaveBtn').addEventListener('click', function(){
+    var list = loadPresets();
+    var defaultName = '프리셋 '+fmtDate(new Date());
+    var name = prompt('프리셋 이름을 입력하세요', defaultName);
+    if(name===null) return;
+    name = name.trim() || defaultName;
+    var existing = list.filter(function(pr){ return pr.name===name; })[0];
+    if(existing && !confirm('"'+name+'" 프리셋이 이미 있습니다. 덮어쓸까요?')) return;
+    var savedAt = fmtDate(new Date());
+    var data = snapshotState();
+    if(existing){ existing.data=data; existing.savedAt=savedAt; }
+    else{ existing = {id:'preset-'+Date.now().toString(36), name:name, savedAt:savedAt, data:data}; list.push(existing); }
+    savePresets(list); refreshPresetSelect(existing.id);
+  });
+  document.getElementById('presetLoadBtn').addEventListener('click', function(){
+    var id = presetSelect.value;
+    if(!id){ alert('불러올 프리셋을 선택하세요.'); return; }
+    var pr = loadPresets().filter(function(x){ return x.id===id; })[0];
+    if(!pr){ alert('프리셋을 찾을 수 없습니다.'); return; }
+    applySnapshot(pr.data); syncPhaseInputs(); saveState(); updateAll();
+  });
+  document.getElementById('presetDeleteBtn').addEventListener('click', function(){
+    var id = presetSelect.value;
+    if(!id){ alert('삭제할 프리셋을 선택하세요.'); return; }
+    var list = loadPresets();
+    var pr = list.filter(function(x){ return x.id===id; })[0];
+    if(!pr) return;
+    if(!confirm('"'+pr.name+'" 프리셋을 삭제할까요?')) return;
+    savePresets(list.filter(function(x){ return x.id!==id; }));
+    refreshPresetSelect();
+  });
+  refreshPresetSelect();
+
+  // ---- Boot ----
+  PHASES.forEach(buildPhasePanel);
+  buildFilterBar();
+  buildAddItemForm();
   document.getElementById('exportBtn').addEventListener('click', exportCSV);
 
   var hadSaved = loadState();
   if(!hadSaved){ PHASES.forEach(function(p){ autoRecommendPhase(p.key); }); }
-  PHASES.forEach(function(p){
-    phaseRefs[p.key].numInput.value = state.budgets[p.key];
-    phaseRefs[p.key].rangeInput.value = state.budgets[p.key];
-    phaseRefs[p.key].dateInput.value = state.dates[p.key];
-  });
+  syncPhaseInputs();
   updateAll();
 
   try{
     if(window.claude && window.claude.hot){
-      window.claude.hot.snapshot(function(){ return {budgets:state.budgets, dates:state.dates, itemDates:state.itemDates, itemCost:state.itemCost, selected:Array.from(state.selected)}; });
+      window.claude.hot.snapshot(function(){ return snapshotState(); });
       var boot = function(data){
-        if(data && data.budgets){
-          PHASES.forEach(function(p){ if(typeof data.budgets[p.key]==='number') state.budgets[p.key]=data.budgets[p.key]; });
-          if(data.dates) PHASES.forEach(function(p){ if(typeof data.dates[p.key]==='string') state.dates[p.key]=data.dates[p.key]; });
-          if(data.itemDates) ITEMS.forEach(function(it){ if(it.ownDate && typeof data.itemDates[it.id]==='string') state.itemDates[it.id]=data.itemDates[it.id]; });
-          if(data.itemCost){
-            ITEMS.forEach(function(it){
-              var o = data.itemCost[it.id];
-              if(o && typeof o.min==='number' && typeof o.max==='number') state.itemCost[it.id] = {min:o.min, max:o.max};
-            });
-          }
-          state.selected = new Set(data.selected||[]);
-          PHASES.forEach(function(p){
-            phaseRefs[p.key].numInput.value=state.budgets[p.key];
-            phaseRefs[p.key].rangeInput.value=state.budgets[p.key];
-            phaseRefs[p.key].dateInput.value=state.dates[p.key];
-          });
-          updateAll();
-        }
+        if(data && data.budgets){ applySnapshot(data); syncPhaseInputs(); updateAll(); }
       };
       if(window.claude.hot.ready) window.claude.hot.ready(boot); else boot(window.claude.hot.data);
     }
