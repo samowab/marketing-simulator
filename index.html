@@ -226,6 +226,33 @@
   .custom-delete{color:var(--crit); border-color:var(--border);}
   .custom-delete:hover{border-color:var(--crit);}
 
+  /* ---- Item table ---- */
+  .table-wrap{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:auto;
+    box-shadow:var(--shadow); margin-bottom:22px; max-height:75vh;
+  }
+  table.item-table{border-collapse:collapse; width:100%; min-width:1080px; font-size:12.5px;}
+  .item-table thead th{
+    position:sticky; top:0; background:var(--surface); text-align:left; font-size:10.5px; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--muted); font-weight:700; padding:10px 12px; border-bottom:1px solid var(--border); z-index:2;
+  }
+  .item-table thead th.cell-title{min-width:260px;}
+  .item-table thead th.cell-cost{min-width:170px;}
+  .item-table tbody td{padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top;}
+  .item-table tbody tr:last-child td{border-bottom:none;}
+  .item-table tbody tr:hover td{background:var(--surface-2);}
+  .item-table tbody tr.has-selection td.cell-title{box-shadow:inset 3px 0 0 var(--accent);}
+  .cell-title{max-width:320px;}
+  .title-row{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .title-row strong{font-size:13px; font-weight:700;}
+  .row-desc{font-size:11.5px; color:var(--text-2); line-height:1.5; margin:4px 0 0;}
+  .row-desc.muted{color:var(--muted);}
+  .cell-lead{color:var(--text-2); white-space:nowrap;}
+  .cell-phase{text-align:center;}
+  .row-toggle{display:inline-flex; cursor:pointer;}
+  .row-toggle input{width:17px; height:17px; cursor:pointer;}
+  .cell-manage{white-space:nowrap;}
+
   /* ---- Add custom item ---- */
   .add-item-wrap{
     background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px;
@@ -281,7 +308,7 @@
 <header class="hero">
   <p class="eyebrow">Marketing Budget Simulator</p>
   <h1>마케팅 시뮬레이터</h1>
-  <p>전체 마케팅 액션 아이템을 한 리스트에 모아뒀습니다. 각 항목은 어느 구간(<b>상시 운영 / CBT1 / CBT2 / 런칭</b>)에 등장할 수 있는지 미리 정의되어 있고 — 예: 트레일러 영상 제작은 CBT1·CBT2·런칭 모두에 걸쳐 있을 수 있습니다 — 카드에서 원하는 구간 토글을 켜면 그 항목이 해당 구간의 예산·일정에 포함됩니다. 각 구간 패널에서 "자동 추천"을 누르면 예산에 맞게 해당 구간에 적합한 항목들이 자동으로 켜지고, 직접 원하는 구간만 골라 켤 수도 있습니다. 항목별 준비 소요기간(리드타임)을 반영해 구간별로 "언제부터 준비를 시작해야 하는지"를 계산하고, 비용 부담 주체(퍼블리셔/개발사/공동)와 금액도 구간마다 따로 조정할 수 있습니다.</p>
+  <p>전체 마케팅 액션 아이템을 하나의 표로 모아뒀습니다. 각 행마다 <b>상시 운영 / CBT1 / CBT2 / 런칭</b> 체크박스가 있어 어떤 항목이든 원하는 구간에 자유롭게 포함시킬 수 있습니다 — 예: 트레일러 영상 제작을 CBT1·CBT2·런칭 세 구간에 동시에 체크해도 됩니다. 각 구간 패널에서 "자동 추천"을 누르면 예산에 맞게 그 구간에 적합한 항목들이 우선순위 순으로 자동 체크되고(예산을 넘어서면 체크가 풀립니다), 그 외에는 표에서 직접 원하는 구간만 골라 체크하면 됩니다. "상시 운영"은 특정 날짜가 아니라 계속 진행되는 활동이라 별도 예정일이 없고, 나머지 구간은 예정일을 입력하면 항목별 준비 소요기간(리드타임)을 반영해 "언제부터 준비를 시작해야 하는지"를 계산합니다. 비용 부담 주체(퍼블리셔/개발사/공동)와 금액도 항목별로 직접 조정할 수 있습니다.</p>
   <div class="disclaimer">
     ⚠️ 항목·금액·준비기간은 일반적인 콘솔·PC MMORPG 마케팅 관행을 기준으로 한 <b>예시 추정치</b>이며 특정 프로젝트의 공식 확정 예산이 아닙니다. 실제 집행 전 사내 예산 프로세스와 실제 견적으로 반드시 재검증하세요.
     구간명(상시 운영/CBT1/CBT2/런칭)은 실제 날짜 대신 마일스톤 기준으로 표기했으니, 담당 중인 프로젝트의 실제 일정에 맞게 각 구간의 예정일을 입력해 사용하세요.
@@ -323,7 +350,26 @@
 
 <div class="filter-bar" id="filterBar"></div>
 
-<div class="grid" id="itemGrid"></div>
+<div class="table-wrap">
+  <table class="item-table">
+    <thead>
+      <tr>
+        <th class="cell-title">항목</th>
+        <th>태그</th>
+        <th>부담주체</th>
+        <th>규모</th>
+        <th class="cell-cost">비용(만원)</th>
+        <th>준비기간</th>
+        <th>상시운영</th>
+        <th>CBT1</th>
+        <th>CBT2</th>
+        <th>런칭</th>
+        <th>관리</th>
+      </tr>
+    </thead>
+    <tbody id="itemGrid"></tbody>
+  </table>
+</div>
 
 <section class="cal-card">
   <h2>전체 캠페인 캘린더</h2>
@@ -414,8 +460,8 @@
   function ck(itemId, phaseKey){ return itemId+'::'+phaseKey; }
   function newCustomId(){ return 'custom-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7); }
 
-  function getCost(item, phaseKey){
-    var o = state.itemCost[ck(item.id, phaseKey)];
+  function getCost(item){
+    var o = state.itemCost[item.id];
     if(o && typeof o.min==='number' && typeof o.max==='number'){
       return {min:o.min, max:o.max, mid:(o.min+o.max)/2, custom:true};
     }
@@ -464,17 +510,13 @@
     }
     state.itemCost = {};
     if(data.itemCost){
-      var byItem = {}; allItems().forEach(function(it){ byItem[it.id]=it; });
-      Object.keys(data.itemCost).forEach(function(key){
-        var parts = key.split('::'); var id = parts[0], ph = parts[1];
-        var it = byItem[id];
-        if(!it || !ph || it.phases.indexOf(ph)===-1) return;
-        var o = data.itemCost[key];
-        if(o && typeof o.min==='number' && typeof o.max==='number') state.itemCost[key] = {min:o.min, max:o.max};
+      allItems().forEach(function(it){
+        var o = data.itemCost[it.id];
+        if(o && typeof o.min==='number' && typeof o.max==='number') state.itemCost[it.id] = {min:o.min, max:o.max};
       });
     }
     var validKeys = {};
-    allItems().forEach(function(it){ it.phases.forEach(function(ph){ validKeys[ck(it.id,ph)] = true; }); });
+    allItems().forEach(function(it){ PHASES.forEach(function(p){ validKeys[ck(it.id,p.key)] = true; }); });
     state.selected = new Set(Array.isArray(data.selected) ? data.selected.filter(function(k){ return validKeys[k]; }) : []);
   }
   function loadState(){
@@ -517,28 +559,27 @@
     return m.toLocaleString('ko-KR')+'만원';
   }
   function fmtRange(min,max){ return fmtManwon(min)+' ~ '+fmtManwon(max); }
-  function budgetImpact(it, phaseKey){ return it.owner==='dev' ? 0 : getCost(it, phaseKey).mid; }
+  function budgetImpact(it){ return it.owner==='dev' ? 0 : getCost(it).mid; }
 
   function autoRecommendPhase(phaseKey){
     var budgetManwon = state.budgets[phaseKey]*10000;
     var candidates = allItems().filter(function(it){ return it.phases.indexOf(phaseKey)!==-1; }).sort(function(a,b){ return a.pr-b.pr; });
     var running = 0;
     candidates.forEach(function(it){
-      var impact = budgetImpact(it, phaseKey);
+      var impact = budgetImpact(it);
       var key = ck(it.id, phaseKey);
       if(running+impact <= budgetManwon){ state.selected.add(key); running += impact; }
       else{ state.selected.delete(key); }
     });
   }
   function resetPhase(phaseKey){
-    allItems().forEach(function(it){ if(it.phases.indexOf(phaseKey)!==-1) state.selected.delete(ck(it.id, phaseKey)); });
+    allItems().forEach(function(it){ state.selected.delete(ck(it.id, phaseKey)); });
   }
   function computePhaseTotals(phaseKey){
     var sumMin=0,sumMax=0,sumMid=0,count=0,devMid=0,devCount=0;
     allItems().forEach(function(it){
-      if(it.phases.indexOf(phaseKey)===-1) return;
       if(!state.selected.has(ck(it.id, phaseKey))) return;
-      var c = getCost(it, phaseKey); count++;
+      var c = getCost(it); count++;
       if(it.owner==='dev'){ devMid+=c.mid; devCount++; }
       else{ sumMin+=c.min; sumMax+=c.max; sumMid+=c.mid; }
     });
@@ -578,12 +619,18 @@
     budgetInputs.appendChild(numWrap); budgetInputs.appendChild(rangeInput);
     panel.appendChild(budgetInputs);
 
-    var dateWrap = document.createElement('div'); dateWrap.className='date-wrap';
-    var dateLabel = document.createElement('label'); dateLabel.textContent = p.key==='always' ? '캠페인 시작일' : '예정일';
-    var dateId = 'date-'+p.key; dateLabel.setAttribute('for', dateId);
-    var dateInput = document.createElement('input'); dateInput.type='date'; dateInput.id=dateId; dateInput.value=state.dates[p.key];
-    dateWrap.appendChild(dateLabel); dateWrap.appendChild(dateInput);
-    panel.appendChild(dateWrap);
+    var dateInput = document.createElement('input'); dateInput.type='date'; dateInput.id='date-'+p.key; dateInput.value=state.dates[p.key];
+    if(p.key==='always'){
+      var alwaysNote = document.createElement('p'); alwaysNote.className='phase-sub'; alwaysNote.style.cssText='margin-top:-4px;';
+      alwaysNote.textContent = '상시 진행 항목이라 별도 예정일이 없습니다. 준비 일정은 고정 행사일이 있는 항목(예: Steam Next Fest)에만 표시됩니다.';
+      panel.appendChild(alwaysNote);
+    } else {
+      var dateWrap = document.createElement('div'); dateWrap.className='date-wrap';
+      var dateLabel = document.createElement('label'); dateLabel.textContent = '예정일';
+      dateLabel.setAttribute('for', dateInput.id);
+      dateWrap.appendChild(dateLabel); dateWrap.appendChild(dateInput);
+      panel.appendChild(dateWrap);
+    }
     dateInput.addEventListener('change', function(){ state.dates[p.key]=dateInput.value; saveState(); updateAll(); });
 
     var presets = document.createElement('div'); presets.className='chips';
@@ -704,7 +751,7 @@
     bar.innerHTML = '';
 
     var phaseGroup = document.createElement('div'); phaseGroup.className='filter-group';
-    var pLabel = document.createElement('span'); pLabel.className='flabel'; pLabel.textContent='구간';
+    var pLabel = document.createElement('span'); pLabel.className='flabel'; pLabel.textContent='포함된 구간';
     phaseGroup.appendChild(pLabel);
     var phaseBtns = {};
     function makePhaseChip(key, label, color){
@@ -764,20 +811,62 @@
     bar.appendChild(count);
   }
 
-  // ================= Item cards =================
-  function buildPhaseToggleBlock(it, phaseKey){
+  // ================= Item list (table) =================
+  function buildPhaseCell(it, phaseKey){
     var p = PHASE_MAP[phaseKey];
-    var block = document.createElement('div'); block.className='phase-toggle-block';
-    var label = document.createElement('label'); label.className='phase-toggle-btn';
+    var td = document.createElement('td'); td.className='cell-phase';
+    var label = document.createElement('label'); label.className='row-toggle'; label.title=p.label+'에 포함';
     var cb = document.createElement('input'); cb.type='checkbox'; cb.checked = state.selected.has(ck(it.id, phaseKey));
     cb.style.accentColor = p.color;
-    var dot = document.createElement('span'); dot.className='dot'; dot.style.background=p.color;
-    label.appendChild(cb); label.appendChild(dot); label.appendChild(document.createTextNode(p.label));
-    block.appendChild(label);
+    label.appendChild(cb);
+    cb.addEventListener('change', function(){
+      var key = ck(it.id, phaseKey);
+      if(cb.checked) state.selected.add(key); else state.selected.delete(key);
+      saveState(); updatePanelsAndSummaries();
+      var row = td.closest('tr');
+      if(row) row.classList.toggle('has-selection', PHASES.some(function(pp){ return state.selected.has(ck(it.id,pp.key)); }));
+    });
+    td.appendChild(label);
+    return td;
+  }
 
-    var detail = document.createElement('div'); detail.className='phase-instance-detail'; detail.hidden = !cb.checked;
-    var costNow = getCost(it, phaseKey);
+  function buildRow(it){
+    var tr = document.createElement('tr'); tr.dataset.id = it.id;
+    var anySel = PHASES.some(function(p){ return state.selected.has(ck(it.id,p.key)); });
+    if(anySel) tr.classList.add('has-selection');
 
+    var tdTitle = document.createElement('td'); tdTitle.className='cell-title';
+    var titleRow = document.createElement('div'); titleRow.className='title-row';
+    var h = document.createElement('strong'); h.textContent = it.title;
+    titleRow.appendChild(h);
+    if(it.custom){ var cb3=document.createElement('span'); cb3.className='custom-badge'; cb3.textContent='커스텀'; titleRow.appendChild(cb3); }
+    if(it.scope){ var sc=document.createElement('span'); sc.className='scope-chip'; sc.textContent=it.scope; titleRow.appendChild(sc); }
+    tdTitle.appendChild(titleRow);
+    var desc = document.createElement('p'); desc.className='row-desc'; desc.textContent = it.desc; tdTitle.appendChild(desc);
+    var subMeta = document.createElement('p'); subMeta.className='row-desc muted';
+    subMeta.textContent = '채널 '+(it.ch||'-')+' · KPI '+(it.kpi||'-');
+    tdTitle.appendChild(subMeta);
+    if(it.ownDate){
+      var evRow = document.createElement('div'); evRow.className='event-date-row';
+      var evLabel = document.createElement('label'); evLabel.textContent='행사일'; var evId='ev-'+it.id; evLabel.setAttribute('for',evId);
+      var evInput = document.createElement('input'); evInput.type='date'; evInput.id=evId; evInput.value = state.itemDates[it.id]||'';
+      evInput.addEventListener('change', function(){ state.itemDates[it.id]=evInput.value; saveState(); updateAll(); });
+      evRow.appendChild(evLabel); evRow.appendChild(evInput);
+      tdTitle.appendChild(evRow);
+      if(it.eventNote){ var note=document.createElement('p'); note.className='event-note'; note.textContent=it.eventNote; tdTitle.appendChild(note); }
+    }
+    tr.appendChild(tdTitle);
+
+    var tdTag = document.createElement('td'); var typeChip=document.createElement('span'); typeChip.className='type-chip'; typeChip.textContent=it.type; tdTag.appendChild(typeChip); tr.appendChild(tdTag);
+
+    var tdOwner = document.createElement('td'); var ownerChip=document.createElement('span'); ownerChip.className='owner-chip owner-'+it.owner; ownerChip.textContent=OWNER_LABEL[it.owner]; tdOwner.appendChild(ownerChip); tr.appendChild(tdOwner);
+
+    var tdTier = document.createElement('td'); var tier=document.createElement('span'); tier.className='tier-chip'; tier.title=TIER_LABEL[it.tier];
+    var tdot=document.createElement('span'); tdot.className='dot'; tdot.style.background=TIER_COLOR[it.tier];
+    tier.appendChild(tdot); tier.appendChild(document.createTextNode(it.tier)); tdTier.appendChild(tier); tr.appendChild(tdTier);
+
+    var tdCost = document.createElement('td'); tdCost.className='cell-cost';
+    var costNow = getCost(it);
     var costEdit = document.createElement('div'); costEdit.className='cost-edit';
     var minInput = document.createElement('input'); minInput.type='number'; minInput.className='cost-input'; minInput.step='10'; minInput.min='0'; minInput.value=costNow.min;
     var sep = document.createElement('span'); sep.className='cost-sep'; sep.textContent='~';
@@ -788,122 +877,50 @@
       var mn = parseFloat(minInput.value), mx = parseFloat(maxInput.value);
       if(isNaN(mn)) mn = it.min; if(isNaN(mx)) mx = it.max;
       if(mx < mn) mx = mn;
-      var key = ck(it.id, phaseKey);
-      if(mn===it.min && mx===it.max){ delete state.itemCost[key]; }
-      else{ state.itemCost[key] = {min:mn, max:mx}; }
+      if(mn===it.min && mx===it.max){ delete state.itemCost[it.id]; }
+      else{ state.itemCost[it.id] = {min:mn, max:mx}; }
       saveState(); updateAll();
     }
     minInput.addEventListener('change', commitCost);
     maxInput.addEventListener('change', commitCost);
-    resetBtn.addEventListener('click', function(){ delete state.itemCost[ck(it.id,phaseKey)]; saveState(); updateAll(); });
+    resetBtn.addEventListener('click', function(){ delete state.itemCost[it.id]; saveState(); updateAll(); });
     costEdit.appendChild(minInput); costEdit.appendChild(sep); costEdit.appendChild(maxInput); costEdit.appendChild(unit); costEdit.appendChild(resetBtn);
-    detail.appendChild(costEdit);
+    tdCost.appendChild(costEdit); tr.appendChild(tdCost);
 
-    var eff = effectiveDate(it, phaseKey);
-    var prep = prepStartDate(it, phaseKey);
-    var schedRow = document.createElement('div'); schedRow.className='sched-row';
-    if(eff && prep){
-      var today = new Date(); today.setHours(0,0,0,0);
-      var prepChip = document.createElement('span'); prepChip.className='sched-chip prep'+(prep<today?' late':'');
-      prepChip.textContent = (prep<today?'⚠ 준비 ':'준비 ')+fmtDate(prep)+' ('+dDayLabel(prep)+')';
-      var execChip = document.createElement('span'); execChip.className='sched-chip exec';
-      execChip.textContent = '실행 '+fmtDate(eff)+' ('+dDayLabel(eff)+')';
-      schedRow.appendChild(prepChip); schedRow.appendChild(execChip);
-    } else {
-      var empty = document.createElement('span'); empty.className='sched-empty';
-      empty.textContent = it.ownDate ? '위 행사일을 입력하면 준비 일정이 계산됩니다.' : '이 구간의 예정일을 입력하면 준비 일정이 계산됩니다.';
-      schedRow.appendChild(empty);
-    }
-    detail.appendChild(schedRow);
-    block.appendChild(detail);
+    var tdLead = document.createElement('td'); tdLead.className='cell-lead tabular'; tdLead.textContent = it.lead+'주 전부터'; tr.appendChild(tdLead);
 
-    cb.addEventListener('change', function(){
-      var key = ck(it.id, phaseKey);
-      if(cb.checked) state.selected.add(key); else state.selected.delete(key);
-      detail.hidden = !cb.checked;
-      updateCardSelectionState(it);
-      saveState(); updatePanelsAndSummaries();
-    });
+    PHASES.forEach(function(p){ tr.appendChild(buildPhaseCell(it, p.key)); });
 
-    return block;
-  }
-
-  function updateCardSelectionState(it){
-    var card = document.querySelector('.card[data-id="'+cssEscape(it.id)+'"]');
-    if(!card) return;
-    var anySel = it.phases.some(function(ph){ return state.selected.has(ck(it.id,ph)); });
-    card.classList.toggle('has-selection', anySel);
-  }
-  function cssEscape(s){ return String(s).replace(/[^a-zA-Z0-9_-]/g, function(c){ return '\\'+c; }); }
-
-  function buildCard(it){
-    var card = document.createElement('article'); card.className='card'; card.dataset.id = it.id;
-    var anySel = it.phases.some(function(ph){ return state.selected.has(ck(it.id,ph)); });
-    if(anySel) card.classList.add('has-selection');
-
-    var top = document.createElement('div'); top.className='card-top';
-    var tier = document.createElement('span'); tier.className='tier-chip'; tier.title=TIER_LABEL[it.tier];
-    var tdot = document.createElement('span'); tdot.className='dot'; tdot.style.background=TIER_COLOR[it.tier];
-    tier.appendChild(tdot); tier.appendChild(document.createTextNode(it.tier));
-    top.appendChild(tier);
-    var ownerChip = document.createElement('span'); ownerChip.className='owner-chip owner-'+it.owner; ownerChip.textContent = OWNER_LABEL[it.owner];
-    top.appendChild(ownerChip);
-    var typeChip = document.createElement('span'); typeChip.className='type-chip'; typeChip.textContent = it.type;
-    top.appendChild(typeChip);
-    if(it.scope){ var sc=document.createElement('span'); sc.className='scope-chip'; sc.textContent=it.scope; top.appendChild(sc); }
-    if(it.custom){ var cb3=document.createElement('span'); cb3.className='custom-badge'; cb3.textContent='커스텀 항목'; top.appendChild(cb3); }
-    card.appendChild(top);
-
-    var h3 = document.createElement('h3'); h3.textContent = it.title; card.appendChild(h3);
-    var desc = document.createElement('p'); desc.className='desc'; desc.textContent = it.desc; card.appendChild(desc);
-
-    var meta = document.createElement('dl'); meta.className='meta';
-    var dt1=document.createElement('dt'); dt1.textContent='채널'; var dd1=document.createElement('dd'); dd1.textContent=it.ch;
-    var dt2=document.createElement('dt'); dt2.textContent='목표 KPI'; var dd2=document.createElement('dd'); dd2.textContent=it.kpi;
-    var dt3=document.createElement('dt'); dt3.textContent='준비 기간'; var dd3=document.createElement('dd'); dd3.textContent='실행 '+it.lead+'주 전부터';
-    meta.appendChild(dt1); meta.appendChild(dd1); meta.appendChild(dt2); meta.appendChild(dd2); meta.appendChild(dt3); meta.appendChild(dd3);
-    card.appendChild(meta);
-
-    if(it.ownDate){
-      var evRow = document.createElement('div'); evRow.className='event-date-row';
-      var evLabel = document.createElement('label'); evLabel.textContent='행사일'; var evId='ev-'+it.id; evLabel.setAttribute('for',evId);
-      var evInput = document.createElement('input'); evInput.type='date'; evInput.id=evId; evInput.value = state.itemDates[it.id]||'';
-      evInput.addEventListener('change', function(){ state.itemDates[it.id]=evInput.value; saveState(); updateAll(); });
-      evRow.appendChild(evLabel); evRow.appendChild(evInput);
-      card.appendChild(evRow);
-      if(it.eventNote){ var note=document.createElement('p'); note.className='event-note'; note.textContent=it.eventNote; card.appendChild(note); }
-    }
-
-    var toggles = document.createElement('div'); toggles.className='phase-toggles';
-    it.phases.forEach(function(ph){ toggles.appendChild(buildPhaseToggleBlock(it, ph)); });
-    card.appendChild(toggles);
-
+    var tdManage = document.createElement('td'); tdManage.className='cell-manage';
     if(it.custom){
-      var foot = document.createElement('div'); foot.className='card-foot';
-      var delBtn = document.createElement('button'); delBtn.type='button'; delBtn.className='btn btn-ghost custom-delete'; delBtn.textContent='항목 삭제';
+      var delBtn = document.createElement('button'); delBtn.type='button'; delBtn.className='btn btn-ghost custom-delete'; delBtn.textContent='삭제';
       delBtn.addEventListener('click', function(){
         if(!confirm('"'+it.title+'" 항목을 삭제할까요?')) return;
         state.customItems = state.customItems.filter(function(x){ return x.id!==it.id; });
-        it.phases.forEach(function(ph){ state.selected.delete(ck(it.id,ph)); delete state.itemCost[ck(it.id,ph)]; });
+        PHASES.forEach(function(p){ state.selected.delete(ck(it.id,p.key)); });
+        delete state.itemCost[it.id];
         delete state.itemDates[it.id];
         saveState(); updateAll();
       });
-      foot.appendChild(delBtn);
-      card.appendChild(foot);
+      tdManage.appendChild(delBtn);
+    } else {
+      tdManage.textContent = '-';
     }
-    return card;
+    tr.appendChild(tdManage);
+
+    return tr;
   }
 
   function renderItemGrid(){
-    var grid = document.getElementById('itemGrid');
-    grid.innerHTML = '';
+    var tbody = document.getElementById('itemGrid');
+    tbody.innerHTML = '';
     var items = allItems().filter(function(it){
-      if(filterState.phase!=='all' && it.phases.indexOf(filterState.phase)===-1) return false;
+      if(filterState.phase!=='all' && !state.selected.has(ck(it.id, filterState.phase))) return false;
       if(filterState.owner!=='all' && it.owner!==filterState.owner) return false;
       if(filterState.type!=='all' && it.type!==filterState.type) return false;
       return true;
     });
-    items.forEach(function(it){ grid.appendChild(buildCard(it)); });
+    items.forEach(function(it){ tbody.appendChild(buildRow(it)); });
     var countEl = document.getElementById('itemCount');
     if(countEl) countEl.textContent = items.length+'개 항목 표시 중 (전체 '+allItems().length+'개)';
   }
@@ -1030,7 +1047,8 @@
     body.innerHTML = '';
     var rows = [];
     allItems().forEach(function(it){
-      it.phases.forEach(function(ph){
+      PHASES.forEach(function(p){
+        var ph = p.key;
         if(!state.selected.has(ck(it.id,ph))) return;
         var eff = effectiveDate(it, ph);
         var prep = prepStartDate(it, ph);
@@ -1129,9 +1147,10 @@
     rows.push(['구간','항목','부담 주체','유형','티어','최소비용(만원)','최대비용(만원)','채널','목표 KPI','준비 기간(주)','준비 시작일','실행일','적용 범위']);
     var grandMin=0, grandMax=0, rowCount=0;
     allItems().forEach(function(it){
-      it.phases.forEach(function(ph){
+      var c = getCost(it);
+      PHASES.forEach(function(p){
+        var ph = p.key;
         if(!state.selected.has(ck(it.id,ph))) return;
-        var c = getCost(it, ph);
         var eff = effectiveDate(it, ph); var prep = prepStartDate(it, ph);
         rows.push([
           PHASE_MAP[ph].label, it.title, OWNER_LABEL[it.owner], it.type, it.tier,
